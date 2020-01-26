@@ -1,0 +1,8 @@
+/*
+//add new project
+* git init
+* git add .
+* git commit -m ""
+* git remote add origin "Repository Link"
+* git push -f origin master
+* */
