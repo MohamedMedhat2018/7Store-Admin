@@ -8,7 +8,11 @@ class AddStoreItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //hiding the toolbar
         supportActionBar!!.hide()
+
+
         setContentView(R.layout.activity_add_storage_item)
 
 
