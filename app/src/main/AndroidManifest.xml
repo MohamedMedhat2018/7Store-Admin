@@ -19,9 +19,9 @@
         <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".ui.auth.SignUpActivity" />
         <activity android:name=".ui.home.MainActivity" />
-        <activity android:name=".ui.addItemToStore.AddStoreItemActivity"
 
-            >
+        <activity android:name=".ui.storeProducts.test">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.addItemToStore.AddStoreItemActivity"
+
+            >
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.VIEW" />-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+            <!--            </intent-filter>-->
 
         </activity>
 
