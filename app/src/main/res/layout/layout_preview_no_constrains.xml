@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    >
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,58 +35,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="170dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp">
 
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:alpha=".5"
-            app:cardBackgroundColor="@color/light_grey1"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
 
             >
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:layout_marginBottom="20dp"
+                android:alpha="1"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
 
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="5dp"
-                    android:text="Ahmed"
-                    app:fontFamily="@font/aclonica" />
+                >
 
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="7"
-                    android:padding="20dp"
-                    android:text="Align the edge of a view to the same edge of another view.
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:text="Ahmed"
+                        app:fontFamily="@font/aclonica" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="7"
+                        android:padding="20dp"
+                        android:text="Align the edge of a view to the same edge of another view.
 
 In figure 9, the left side of B is aligned to the left side of A. If you want to align the view centers, create a constraint on both sides.
 
 You can offset the alignment by dragging the view inward from the constraint. For example, figure 10 shows B with a 24dp offset alignment. The offset is defined by the constrained view's margin."
-                    app:fontFamily="@font/amita" />
+                        app:fontFamily="@font/amita" />
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -99,7 +110,17 @@ You can offset the alignment by dragging the view inward from the constraint. Fo
             android:textSize="18sp"
             android:textStyle="normal" />
 
+
     </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/close_white" />
 
 
 </RelativeLayout>
