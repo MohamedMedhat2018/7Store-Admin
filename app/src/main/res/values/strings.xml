@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FireBase Auth with MVVM</string>
+    <string name="edit_order">Edit order</string>
 </resources>
