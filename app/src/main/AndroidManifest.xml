@@ -20,7 +20,7 @@
         <activity android:name=".ui.auth.SignUpActivity" />
         <activity android:name=".ui.home.MainActivity" />
 
-        <activity android:name=".ui.storeProducts.test">
+        <activity android:name=".ui.storeProducts.ProductPreviewActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

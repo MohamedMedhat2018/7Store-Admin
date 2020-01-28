@@ -1,5 +1,446 @@
 <?xml version="1.0" encoding="utf-8"?>
-<temp_root xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
 
-</temp_root>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    tools:showIn="@layout/activity_product_preview">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:orientation="vertical"
+        android:stretchColumns="1"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/gray2"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Products"
+            android:textColor="@color/gray"
+            android:textSize="24dp"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.9"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/b3"
+
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/color_with_two_color">
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginBottom="20dp"
+                    android:alpha="1"
+                    android:paddingLeft="20dp"
+                    android:text="Black 7azaza"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginTop="20dp"
+                    android:alpha="1"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="8 Items"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|bottom"-->
+                <!--                    android:layout_marginBottom="0dp"-->
+                <!--                    android:gravity="bottom"-->
+                <!--                    android:paddingLeft="20dp"-->
+                <!--                    android:paddingBottom="20dp"-->
+                <!--                    android:text="Black 7azaza"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="22sp"-->
+                <!--                    android:textStyle="bold"-->
+
+                <!--                    />-->
+
+                <!--            <TextView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_gravity="left|bottom"-->
+                <!--                android:alpha="1"-->
+                <!--                android:paddingLeft="20dp"-->
+                <!--                android:layout_marginBottom="20dp"-->
+                <!--                android:text="Black 7azaza"-->
+                <!--                android:textColor="@color/white"-->
+                <!--                android:textSize="26sp" />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|center"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
+                <!--                    android:drawablePadding="10dp"-->
+                <!--                    android:paddingLeft="25dp"-->
+                <!--                    android:text="3 Items"-->
+                <!--                    android:textStyle="italic"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="26sp"-->
+                <!--                    android:visibility="visible" />-->
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_items2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/b2" />
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|center"-->
+                <!--                    android:layout_marginBottom="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:paddingLeft="20dp"-->
+                <!--                    android:text="Black 7azaza"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="26sp"-->
+                <!--                    android:textStyle="italic"-->
+                <!--                    />-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/color_with_two_color">
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginBottom="20dp"
+                    android:alpha="1"
+                    android:paddingLeft="20dp"
+                    android:text="Black 7azaza"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginTop="20dp"
+                    android:alpha="1"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="8 Items"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|bottom"-->
+                <!--                    android:layout_marginBottom="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:paddingLeft="20dp"-->
+                <!--                    android:text="Black 7azaza"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="22sp"-->
+                <!--                    android:textStyle="italic"-->
+
+                <!--                    />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|center"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
+                <!--                    android:drawablePadding="10dp"-->
+                <!--                    android:paddingLeft="25dp"-->
+                <!--                    android:text="5 Items"-->
+                <!--                    android:textStyle="italic"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="26sp"-->
+                <!--                    android:visibility="visible" />-->
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_items3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bercelet"
+                    android:tint="@color/gray2" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/color_with_two_color">
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginBottom="20dp"
+                    android:alpha="1"
+                    android:paddingLeft="20dp"
+                    android:text="Black 7azaza"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginTop="20dp"
+                    android:alpha="1"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="8 Items"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|bottom"-->
+                <!--                    android:layout_marginBottom="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:paddingLeft="20dp"-->
+                <!--                    android:text="Black 7azaza"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="22sp" />-->
+
+                <!--            <TextView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_gravity="left|bottom"-->
+                <!--                android:alpha="1"-->
+                <!--                android:paddingLeft="20dp"-->
+                <!--                android:layout_marginBottom="20dp"-->
+                <!--                android:text="Black 7azaza"-->
+                <!--                android:textColor="@color/white"-->
+                <!--                android:textSize="26sp" />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|center"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
+                <!--                    android:drawablePadding="10dp"-->
+                <!--                    android:paddingLeft="25dp"-->
+                <!--                    android:text="8 Items"-->
+                <!--                    android:textStyle="italic"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="26sp"-->
+                <!--                    android:visibility="visible" />-->
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_items4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/b5"
+                    android:tint="@color/gray4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/color_with_two_color">
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginBottom="20dp"
+                    android:alpha="1"
+                    android:paddingLeft="20dp"
+                    android:text="Black 7azaza"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+                <!--            <TextView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_gravity="left|bottom"-->
+                <!--                android:alpha="1"-->
+                <!--                android:paddingLeft="20dp"-->
+                <!--                android:layout_marginBottom="20dp"-->
+                <!--                android:text="Black 7azaza"-->
+                <!--                android:textColor="@color/white"-->
+                <!--                android:textSize="26sp" />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="left|center"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:alpha="1"-->
+                <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
+                <!--                    android:drawablePadding="10dp"-->
+                <!--                    android:paddingLeft="25dp"-->
+                <!--                    android:text="8 Items"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="22sp"-->
+                <!--                    android:textStyle="italic"-->
+                <!--                    android:visibility="visible" />-->
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginTop="20dp"
+                    android:alpha="1"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="8 Items"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>
