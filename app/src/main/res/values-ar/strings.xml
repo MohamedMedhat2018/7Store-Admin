@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">FireBase Auth with MVVM</string>
     <string name="edit_order">تعديل طلب</string>
+    <string name="flexible_title">Products</string>
 </resources>
