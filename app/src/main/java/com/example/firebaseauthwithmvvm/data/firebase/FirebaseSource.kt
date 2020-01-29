@@ -11,10 +11,8 @@ class FirebaseSource {
 
     private val firebaseAuth: FirebaseAuth by lazy {
         Log.e(TAG, "FirebaseSoure " + FirebaseAuth.getInstance())
-
         FirebaseAuth.getInstance()
     }
-
 
     fun login(email: String, pass: String) = Completable.create { emitter ->
         firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
@@ -28,7 +26,6 @@ class FirebaseSource {
             }
         }
     }
-
 
     fun register(email: String, pass: String) = Completable.create { emitter ->
         Log.e(TAG, "FirebaseSoure Register999 ")
