@@ -1,0 +1,5 @@
+created there main packages:-
+~ data: we will store the models and the repositories and database
+~ ui:  All the UI related things will go inside this package (Activities, Fragments, ViewModels, Adapters etc).
+  Inside this package we have two more packages for the Auth and for the Home screen of our application.
+~ utils: Inside this package we will store the helper functions.

@@ -35,12 +35,11 @@ class ProductPreviewActivity : AppCompatActivity(), AppBarLayout.OnOffsetChanged
     }
 
 
+    //
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if (mMaxScrollSize == 0) mMaxScrollSize = appBarLayout!!.totalScrollRange
 
-        val currentScrollPercentage: Int = (abs(verticalOffset) * 100
-                / mMaxScrollSize)
-
+        val currentScrollPercentage: Int = (abs(verticalOffset) * 100 / mMaxScrollSize)
 
         if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
             if (!mIsImageHidden) {
@@ -53,7 +52,6 @@ class ProductPreviewActivity : AppCompatActivity(), AppBarLayout.OnOffsetChanged
 //                        supportActionBar!!.show()
 //                        supportActionBar!!.hide()
                         tv_product_title.visibility = View.GONE
-
 
                     }).start()
             }
@@ -70,10 +68,7 @@ class ProductPreviewActivity : AppCompatActivity(), AppBarLayout.OnOffsetChanged
                         ivWantToCollapse.isEnabled = true
                     }).start()
             }
-
-
         }
-
 
     }
 }
