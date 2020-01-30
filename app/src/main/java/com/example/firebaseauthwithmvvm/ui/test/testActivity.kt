@@ -4,7 +4,9 @@ import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.accessibility.AccessibilityViewCommand
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.model.Product
@@ -15,6 +17,7 @@ class testActivity : AppCompatActivity() {
 
     val products: ArrayList<Product> = ArrayList()
     val TAG: String = this.javaClass.simpleName
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,17 @@ class testActivity : AppCompatActivity() {
 //        Log.e(TAG, "Scroll " + offset + ", " + extent + ", " + range)
 
 
+        var mImageViewHeight: Int
+
+        //Retrieve a dimensional for a particular resource ID for use as a size in raw pixels.
+        mImageViewHeight = resources.getDimensionPixelOffset(R.dimen.flexible_space_image_height)
+
         nsv_product_parent.viewTreeObserver
             .addOnScrollChangedListener {
                 //top edge of the displayed part of your view
-                val scrollY: Int = nsv_product_parent.scrollY
+//                val scrollY: Int = nsv_product_parent.scrollY
                 //the height of the content of scrollView.
-                val scrollContentHeight: Int = rv_store_products.getChildAt(0).height
+//                val scrollContentHeight: Int = rv_store_products.getChildAt(0).height
 
 //                iv_product_img.layoutParams.height = (iv_product_img.height - scrollY/2)
 
@@ -52,13 +60,13 @@ class testActivity : AppCompatActivity() {
 //                Log.e(TAG, "Scroll " + scrollY + ", " + scrollContentHeight)
 
                 //screen height
-                val display = windowManager.defaultDisplay
-                val size = Point()
-                display.getSize(size)
-                val width: Int = size.x
-                val height: Int = size.y
-
-                Log.e(TAG, "height " + height + ", " + iv_product_img.layoutParams.height)
+//                val display = windowManager.defaultDisplay
+//                val size = Point()
+//                display.getSize(size)
+//                val width: Int = size.x
+//                val height: Int = size.y
+//
+//                Log.e(TAG, "height " + height + ", " + iv_product_img.layoutParams.height)
 
 
                 //the max height of top edge in full scrolled
@@ -72,37 +80,66 @@ class testActivity : AppCompatActivity() {
 //                )
 
 
-                val scrollViewHeight: Int =
-                    nsv_product_parent.getChildAt(0).bottom - nsv_product_parent.height
+                //Math.max(n1, n2) return the maximum num of two num
+                var scrollY: Int =
+                    Math.min(Math.max(nsv_product_parent.scrollY, 0), mImageViewHeight)
 
 
-                var imageHight =
-                    iv_product_img.layoutParams.height / baseContext.resources.displayMetrics.density
-                Log.e(TAG, "IMAGE TEST " + imageHight)
-
-                val getScrollY: Int = nsv_product_parent.scrollY
+                iv_product_img.translationY = (scrollY / 2).toFloat()
 
 
+                var alpha: Float = (scrollY / mImageViewHeight).toFloat()
 
-                if (imageHight > 0.0) {
-                    Log.e(TAG, "  image contain " + imageHight + " tetst " + getScrollY)
 
-                    imageHight -= getScrollY
-                    iv_product_img.scrollY = imageHight.toInt()
+                Log.e(TAG, "test " +iv_product_img.translationY  + " , " + mImageViewHeight )
+
+                if (iv_product_img.translationY >  237) {
+                    iv_product_img.visibility = View.INVISIBLE
+                    Log.e(TAG, "test3 " +iv_product_img.translationY)
+
+                }else {
                     iv_product_img.visibility = View.VISIBLE
-//                    Log.e(TAG, "  image contain " + imageHight)
+                    Log.e(TAG, "test2 " + resources.getDimension(R.dimen.flexible_space_image_height))
 
-                } else {
-                    iv_product_img.visibility = View.GONE
                 }
 
-
-                val scrollPosition = getScrollY / scrollViewHeight * 100.0
-                Log.i(
-                    "scrollview",
-                    "scroll Percent Y: " + scrollPosition.toInt() + " , scrollViewHeight " + scrollViewHeight +
-                            ", getScrollY " + getScrollY + ", scrollPosition " + scrollPosition + ", img after scroll" + imageHight
-                )
+//                val scrollViewHeight: Int =
+//                    nsv_product_parent.scrollY
+////                - nsv_product_parent.height
+//
+//                Log.e(TAG, "Height" + scrollViewHeight)
+//
+//
+////
+//                var imageHight =
+//                    iv_product_img.layoutParams.height / baseContext.resources.displayMetrics.density
+//                Log.e(TAG, "IMAGE TEST " + imageHight)
+//
+////                val getScrollY: Int = nsv_product_parent.scrollY
+//
+//
+////
+//                if (imageHight > 0.0) {
+//
+//
+//                    Log.e(TAG, "  image contain " + imageHight)
+//
+//                    imageHight -= scrollViewHeight
+//                    iv_product_img.scrollY = imageHight.toInt()
+//                    iv_product_img.visibility = View.VISIBLE
+//                    Log.e(TAG, "  image contain " + imageHight)
+//
+//                } else {
+//                    iv_product_img.visibility = View.GONE
+//                }
+////
+//
+//                val scrollPosition = getScrollY / scrollViewHeight * 100.0
+//                Log.i(
+//                    "scrollview",
+//                    "scroll Percent Y: " + scrollPosition.toInt() + " , scrollViewHeight " + scrollViewHeight +
+//                            ", getScrollY " + getScrollY + ", scrollPosition " + scrollPosition + ", img after scroll" + imageHight
+//                )
 
 
 //                val statusBarHeight: Int = Utility.getStatusBarHeight(context)
@@ -145,6 +182,20 @@ class testActivity : AppCompatActivity() {
                 "green 7zaza",
                 5,
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUV4MCkOGZgQlNvD_cjDiRB-vVAVodddUnEvZaH_LASO2HKFm&s"
+            )
+        )
+        products.add(
+            Product(
+                "blue 7zaza",
+                8,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqbr_OQVDmGGQrj0mXu-IHDSaIM4YNiOINAA6hXpseUO_ZWs8j&s"
+            )
+        )
+        products.add(
+            Product(
+                "blue 7zaza",
+                8,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqbr_OQVDmGGQrj0mXu-IHDSaIM4YNiOINAA6hXpseUO_ZWs8j&s"
             )
         )
         products.add(
