@@ -1,5 +1,7 @@
 package com.example.firebaseauthwithmvvm.ui.test
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.data.model.Product
+import com.squareup.picasso.Picasso
 
-class dummyDataRecyclerView : RecyclerView.Adapter<dummyDataRecyclerView.ProductViewHolder>() {
+class dummyDataRecyclerView(var product: ArrayList<Product>, val context: Context) :
+    RecyclerView.Adapter<dummyDataRecyclerView.ProductViewHolder>() {
+
+    val TAG = this.javaClass.simpleName
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -18,12 +25,20 @@ class dummyDataRecyclerView : RecyclerView.Adapter<dummyDataRecyclerView.Product
         return ProductViewHolder(root)
     }
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount(): Int = product.size
+
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        holder.tv_name.text = product.get(position).productName
+        Log.e(TAG, "product  name " + product.get(position).productName)
+        holder.tv_qnt.text = product.get(position).productQnt.toString()
+        Log.e(TAG, "product  qnt " + product.get(position).productQnt)
+
+        if (!product[position].productImg.isNullOrEmpty())
+            Picasso.get().load(product.get(position).productImg).into(holder.iv_image)
+        Log.e(TAG, "product  qnt " + product.get(position).productImg)
+
     }
 
 
@@ -33,6 +48,7 @@ class dummyDataRecyclerView : RecyclerView.Adapter<dummyDataRecyclerView.Product
         lateinit var tv_qnt: TextView
 
         init {
+
             iv_image = itemView.findViewById(R.id.product_image)
             tv_name = itemView.findViewById(R.id.product_name)
             tv_qnt = itemView.findViewById(R.id.product_qnt)
