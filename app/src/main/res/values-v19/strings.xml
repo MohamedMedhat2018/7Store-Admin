@@ -1,10 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FireBase Auth with MVVM</string>
-    <string name="edit_order">Edit order</string>
-    <string name="flexible_title">Products</string>
-    <string name="store_product_name">Name</string>
-    <string name="store_product_quantity">Quantity</string>
-    <string name="store_product_default_quantity">1</string>
     <string name="store_product_materials_cost">Materials Cost</string>
     <string name="store_product_price">Price</string>
     <string name="store_product_default_materials_cost">00.00</string>
