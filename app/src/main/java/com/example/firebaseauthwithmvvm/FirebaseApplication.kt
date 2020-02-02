@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.auth.AuthViewModelFactory
-import com.example.firebaseauthwithmvvm.ui.home.HomeViewModelFactory
+import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule

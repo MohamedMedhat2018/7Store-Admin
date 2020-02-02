@@ -1,22 +1,17 @@
 package com.example.firebaseauthwithmvvm.ui.auth
 
-import android.content.Intent
-import android.opengl.Visibility
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.databinding.ActivityLoginBinding
-import com.example.firebaseauthwithmvvm.ui.home.MainActivity
 import com.example.firebaseauthwithmvvm.utils.startHomeActivty
 import kotlinx.android.synthetic.main.activity_login.*
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance

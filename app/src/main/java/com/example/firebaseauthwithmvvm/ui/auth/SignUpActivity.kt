@@ -1,23 +1,19 @@
 package com.example.firebaseauthwithmvvm.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.databinding.ActivitySignUpBinding
-import com.example.firebaseauthwithmvvm.ui.home.MainActivity
+import com.example.firebaseauthwithmvvm.ui.home2.Main2Activity
 import com.example.firebaseauthwithmvvm.utils.startHomeActivty
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_sign_up.view.*
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
-import org.kodein.di.KodeinContainer
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
@@ -48,7 +44,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener, KodeinAware {
     override fun onStarted() {
         progressbar.visibility = View.VISIBLE
 
-        Intent(this, MainActivity::class.java).also {
+        Intent(this, Main2Activity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(it)
         }

@@ -3,4 +3,11 @@
     <string name="app_name">FireBase Auth with MVVM</string>
     <string name="edit_order">تعديل طلب</string>
     <string name="flexible_title">Products</string>
+    <string name="store">المخزن</string>
+    <string name="orders">الطلبات</string>
+    <string name="finished_orders">الطلبات المنتهيه</string>
+    <string name="title_order">الطلبات</string>
+    <string name="title_store">المخزن</string>
+    <string name="title_finished_order">الطلبات المنتهيه</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.example.firebaseauthwithmvvm.ui.home
+package com.example.firebaseauthwithmvvm.ui.home2
 
 import android.view.View
 import androidx.lifecycle.ViewModel

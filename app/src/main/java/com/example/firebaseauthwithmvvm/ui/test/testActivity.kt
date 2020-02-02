@@ -83,7 +83,6 @@ class testActivity : AppCompatActivity() {
                 val getScrollY: Int = nsv_product_parent.scrollY
 
 
-
                 if (imageHight > 0.0) {
                     Log.e(TAG, "  image contain " + imageHight + " tetst " + getScrollY)
 
