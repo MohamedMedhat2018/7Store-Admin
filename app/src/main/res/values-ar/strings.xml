@@ -3,11 +3,24 @@
     <string name="app_name">FireBase Auth with MVVM</string>
     <string name="edit_order">تعديل طلب</string>
     <string name="flexible_title">Products</string>
+<<<<<<< HEAD
     <string name="store">المخزن</string>
     <string name="orders">الطلبات</string>
     <string name="finished_orders">الطلبات المنتهيه</string>
     <string name="title_order">الطلبات</string>
     <string name="title_store">المخزن</string>
     <string name="title_finished_order">الطلبات المنتهيه</string>
+=======
+    <string name="store_product_name">اسم المنتج</string>
+    <string name="store_product_quantity">الكميه</string>
+    <string name="store_product_default_quantity">١</string>
+    <string name="store_product_materials_cost">تكلفه التصنيع</string>
+    <string name="store_product_price">السعر</string>
+    <string name="store_product_default_materials_cost">٠٠.٠٠</string>
+    <string name="store_product_default_price">٠٠.٠٠</string>
+    <string name="store_item_image_description">store item image</string>
+    <string name="store_item_add">اضافه</string>
+    <string name="store_product_cancel">الغاء</string>
+>>>>>>> origin
 
 </resources>

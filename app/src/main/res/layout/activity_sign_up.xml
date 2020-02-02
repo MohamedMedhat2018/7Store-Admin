@@ -85,11 +85,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:labelFor="@id/text_email"
+                        android:labelFor="@id/et_email_sign_up"
                         android:text="email" />
 
                     <EditText
-                        android:id="@+id/text_email"
+                        android:id="@+id/et_email_sign_up"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -104,11 +104,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:labelFor="@id/edit_text_password"
+                        android:labelFor="@id/et_password_sign_up"
                         android:text="password" />
 
                     <EditText
-                        android:id="@+id/edit_text_password"
+                        android:id="@+id/et_password_sign_up"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_lock"
@@ -121,7 +121,7 @@
 
 
                     <Button
-                        android:id="@+id/button_sign_up"
+                        android:id="@+id/btn_sign_up"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="22dp"
@@ -150,11 +150,11 @@
                             />
 
                         <TextView
-                            android:id="@+id/tv_login_part2"
+                            android:id="@+id/bt_create_account_sign_up"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="@{(v) -> viewmodel.goToLogin(v)}"
-                            android:text="Login"
+                            android:text="Create account"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp" />
 

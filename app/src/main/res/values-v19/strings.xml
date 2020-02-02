@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <string name="title_order">Order</string>
     <string name="title_finished_order">Finished Order</string>
+=======
+    <string name="store_product_materials_cost">Materials Cost</string>
+    <string name="store_product_price">Price</string>
+    <string name="store_product_default_materials_cost">00.00</string>
+    <string name="store_product_default_price">00.00</string>
+    <string name="store_item_image_description">store item image</string>
+    <string name="store_item_add">Add</string>
+    <string name="store_product_cancel">Cancle</string>
+>>>>>>> origin
 </resources>
