@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class FinishedOrderViewModel : ViewModel() {
 
     private val textMLiveData = MutableLiveData<String>().apply {
-        value = "Hi fROM Finished Order Live data"
+        value = "Hi From Finished Order Live data"
     }
 
     val textLiveData: LiveData<String> = textMLiveData

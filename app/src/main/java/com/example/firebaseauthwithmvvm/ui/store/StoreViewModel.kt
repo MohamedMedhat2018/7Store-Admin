@@ -1,15 +1,25 @@
 package com.example.firebaseauthwithmvvm.ui.store
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.firebaseauthwithmvvm.utils.startAddProduct
 
 class StoreViewModel : ViewModel() {
 
-    private val textMLiveData = MutableLiveData<String>().apply {
-        value = "Hi From Store View Model"
-    }
+    var TAG = this.javaClass.simpleName
 
-    val textLiveData: LiveData<String> = textMLiveData
+//    private val textMLiveData = MutableLiveData<String>().apply {
+//        value = "Hi From Store View Model"
+//    }
+//
+//    val textLiveData: LiveData<String> = textMLiveData
+
+
+    fun addProduct(view: View) {
+        Log.e(TAG, "Test here")
+        view.context.startAddProduct()
+
+    }
 
 }

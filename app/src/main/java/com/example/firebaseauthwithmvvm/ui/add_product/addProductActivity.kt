@@ -1,9 +1,8 @@
-package com.example.firebaseauthwithmvvm.ui.test
+package com.example.firebaseauthwithmvvm.ui.add_product
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +12,7 @@ import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.model.Product
 import kotlinx.android.synthetic.main.activity_test.*
 
-class testActivity : AppCompatActivity() {
+class addProductActivity : AppCompatActivity() {
 
     val products: ArrayList<Product> = ArrayList()
     val TAG: String = this.javaClass.simpleName
@@ -66,39 +65,20 @@ class testActivity : AppCompatActivity() {
 
                 Log.e(TAG, "test " + iv_product_img.translationY + " , " + mImageViewHeight)
 
-                if (iv_product_img.translationY > 280) {
+                if (iv_product_img.translationY == resources.getDimension(R.dimen.flexible_space_image_height)) {
 //                    iv_product_img.startAnimation(slide_left_in)
                     Log.e(TAG, "test3 " + iv_product_img.translationY)
-                    supportActionBar!!.setTitle("Products")
+                    supportActionBar!!.title = "Products"
                     supportActionBar!!.show()
+                    Log.e(TAG, "Action bar " + supportActionBar!!.isShowing)
 
-<<<<<<< HEAD
-                val scrollViewHeight: Int =
-                    nsv_product_parent.getChildAt(0).bottom - nsv_product_parent.height
-
-
-                var imageHight =
-                    iv_product_img.layoutParams.height / baseContext.resources.displayMetrics.density
-                Log.e(TAG, "IMAGE TEST " + imageHight)
-
-                val getScrollY: Int = nsv_product_parent.scrollY
-
-
-                if (imageHight > 0.0) {
-                    Log.e(TAG, "  image contain " + imageHight + " tetst " + getScrollY)
-
-                    imageHight -= getScrollY
-                    iv_product_img.scrollY = imageHight.toInt()
-                    iv_product_img.visibility = View.VISIBLE
-//                    Log.e(TAG, "  image contain " + imageHight)
-=======
                     if (iv_product_img.isVisible) {
                         iv_product_img.visibility = View.INVISIBLE
                         tv_product_title.visibility = View.INVISIBLE
                     }
->>>>>>> origin
 
                 } else {
+                    Log.e(TAG, "MMM1" + iv_product_img.translationY)
                     supportActionBar!!.hide()
 //                    tv_product_title.alpha = alpha
                     if (!iv_product_img.isVisible) {

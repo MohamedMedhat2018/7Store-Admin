@@ -10,5 +10,4 @@ class UserRepository(private val firebase: FirebaseSource) {
     fun logout() = firebase.logout()
 
 
-
 }

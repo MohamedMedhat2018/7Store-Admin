@@ -4,4 +4,6 @@
     <dimen name="flexible_space_image_height">240dp</dimen>
     <dimen name="hint_16">16sp</dimen>
     <dimen name="drawable_padding">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_marginBottom">65dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.firebaseauthwithmvvm.ui.test
+package com.example.firebaseauthwithmvvm.ui.add_product
 
 import android.content.Context
 import android.util.Log

@@ -27,11 +27,12 @@ class OrderFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.order_fragment, container, false)
 
-        var textView: TextView = root.findViewById(R.id.text_order)
+        val textView: TextView = root.findViewById(R.id.text_order)
 
         viewModel.textLiveDta.observe(this, Observer {
             textView.text = it
         })
+
 
         return root
     }

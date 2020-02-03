@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+//private const val ARG_PARAM1 = "param1"
+//private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,6 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [StoreFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class StoreFragment : Fragment() {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
@@ -38,25 +39,32 @@ class StoreFragment : Fragment() {
 //    }
 
 
-    lateinit var stroreViewModel: StoreViewModel
+    private lateinit var storeViewModel: StoreViewModel
+    private val TAG = this.javaClass.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        stroreViewModel = ViewModelProviders.of(this).get(StoreViewModel::class.java)
-
         // Inflate the layout for this fragment
-        val root = inflater.inflate(R.layout.fragment_store, container, false)
+//        val root = inflater.inflate(R.layout.fragment_store, container, false)
 
-        val textView: TextView = root.findViewById(R.id.text_store)
+        //for testing
 
-        stroreViewModel.textLiveData.observe(this, Observer {
-            textView.text = it
-        })
+
+        val binding: FragmentStoreBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
+        storeViewModel = ViewModelProviders.of(this).get(StoreViewModel::class.java)
+        binding.viewmodel = storeViewModel
+
+//        val textView: TextView = root.findViewById(R.id.text_store)
+//        storeViewModel.textLiveData.observe(this, Observer {
+//            textView.text = it
+//            Log.e(TAG, "test it $it")
+//        })
+        val root = binding.root
 
         return root
-
     }
 
 

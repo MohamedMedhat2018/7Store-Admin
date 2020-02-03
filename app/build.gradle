@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -25,6 +27,10 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -60,17 +66,23 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //for lifecycle to use ViewModel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.2'
     implementation 'com.mikhaellopez:circularimageview:4.1.1'
 
+    //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //for Navigation Fragment
     implementation 'androidx.navigation:navigation-fragment:2.2.0'
     implementation 'androidx.navigation:navigation-ui:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
-
-
+    //for Multidex
+    implementation 'com.android.support:multidex:1.0.3'
 }

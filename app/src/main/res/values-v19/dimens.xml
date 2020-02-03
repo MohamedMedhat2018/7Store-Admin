@@ -2,4 +2,5 @@
 <resources>
     <dimen name="hint_16">16sp</dimen>
     <dimen name="drawable_padding">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

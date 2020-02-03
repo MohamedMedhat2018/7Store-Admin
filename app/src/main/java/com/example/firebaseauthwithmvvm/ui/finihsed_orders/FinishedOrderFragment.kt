@@ -16,6 +16,8 @@ class FinishedOrderFragment : Fragment() {
         fun newInstance() = FinishedOrderFragment()
     }
 
+    val TAG = this.javaClass.simpleName
+
     private lateinit var viewModel: FinishedOrderViewModel
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class FinishedOrderFragment : Fragment() {
         viewModel.textLiveData.observe(this, Observer {
             textView.text = it
         })
+
         return root
     }
 
