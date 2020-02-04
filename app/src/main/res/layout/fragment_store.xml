@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:text="@string/hello_blank_fragment"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_product"
