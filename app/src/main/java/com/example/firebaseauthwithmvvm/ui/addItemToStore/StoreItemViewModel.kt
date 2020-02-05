@@ -1,19 +1,34 @@
 package com.example.a7storenavigationdrawer.ui.addItemToStore
 
+import android.content.Intent
+import android.view.View
+import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModel
+import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.UploadImage
 import java.lang.ref.WeakReference
 
 
-class StoreItemViewModel : ViewModel() {
+class StoreItemViewModel(private val repository: UserRepository) : ViewModel() {
 
-    lateinit var weakReference: WeakReference<UploadImage>
+    val user by lazy {
+        repository.currentUser()
+    }
+
+    @Nullable
+    var weakReference: UploadImage? = null
+//    var ll = weakReference
+
+    fun onclick() {
+        weakReference?.UploadImageDetails("n")
+    }
 
 
-//    fun uploadProductImage() {
+//    fun uploadProductImage(view: View) {
 //        val intent: Intent = Intent()
 //        intent.type = "image/*"
 //        intent.setAction(Intent.ACTION_GET_CONTENT)
-//        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+//        view.startActivityForResult(intent, PICK_IMAGE_REQUEST)
 //    }
+
 }

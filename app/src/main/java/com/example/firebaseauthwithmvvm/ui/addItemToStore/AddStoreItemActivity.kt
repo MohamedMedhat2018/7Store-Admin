@@ -5,12 +5,29 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.example.a7storenavigationdrawer.ui.addItemToStore.StoreItemViewModel
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.databinding.ActivityAddStorageItemBinding
+import com.example.firebaseauthwithmvvm.databinding.ActivityLoginBinding
+import com.example.firebaseauthwithmvvm.databinding.ActivityMain2Binding
+import com.example.firebaseauthwithmvvm.ui.auth.AuthViewModel
+import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModel
+import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class AddStoreItemActivity : AppCompatActivity(), UploadImage {
+class AddStoreItemActivity : AppCompatActivity(), KodeinAware, UploadImage {
 
     private val PICKER_IMAGE_REQUEST = 1
     lateinit var imageUri: Uri
+
+    private lateinit var viewModel: StoreItemViewModel
+    override val kodein by kodein()
+    private val factory: HomeViewModelFactory by instance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +36,13 @@ class AddStoreItemActivity : AppCompatActivity(), UploadImage {
         supportActionBar!!.hide()
 
         setContentView(R.layout.activity_add_storage_item)
+
+
+        val binding: ActivityAddStorageItemBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_add_storage_item)
+        viewModel = ViewModelProviders.of(this, factory).get(StoreItemViewModel::class.java)
+        binding.viewmodel = viewModel
+
 
     }
 
