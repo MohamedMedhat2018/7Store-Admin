@@ -1,19 +1,33 @@
 package com.example.a7storenavigationdrawer.ui.addItemToStore
 
 import android.content.Intent
-import android.view.View
 import androidx.annotation.Nullable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.UploadImage
+import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
 import java.lang.ref.WeakReference
 
+//(private val repository: UserRepository)
+class StoreItemViewModel : ViewModel() {
 
-class StoreItemViewModel(private val repository: UserRepository) : ViewModel() {
+//    val user by lazy {
+//        repository.currentUser()
+//    }
 
-    val user by lazy {
-        repository.currentUser()
+    //create observer getter
+    private val observableEvents = MutableLiveData<ViewModelEvent>()
+
+    // launch observer setter
+    fun observeViewModelEvents(): LiveData<ViewModelEvent> = observableEvents
+
+    //   Creates a MutableLiveData with value assigned to it. (event)
+    protected fun PostViewModelEvent(event: ViewModelEvent) {
+        observableEvents.postValue(event)
     }
+
 
     @Nullable
     var weakReference: UploadImage? = null

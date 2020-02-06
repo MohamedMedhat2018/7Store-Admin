@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
 
     private val factory: AuthViewModelFactory by instance()
 
-    private val TAG = LoginActivity::class.java.canonicalName
+    private val TAG = LoginActivity::class.java.simpleName
 
     private lateinit var viewModel: AuthViewModel
 
