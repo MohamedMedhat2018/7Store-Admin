@@ -1,17 +1,16 @@
 package com.example.a7storenavigationdrawer.ui.addItemToStore
 
-import android.content.Intent
+import android.util.Log
 import androidx.annotation.Nullable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.UploadImage
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
-import java.lang.ref.WeakReference
 
 //(private val repository: UserRepository)
 class StoreItemViewModel : ViewModel() {
+
 
 //    val user by lazy {
 //        repository.currentUser()
@@ -24,7 +23,8 @@ class StoreItemViewModel : ViewModel() {
     fun observeViewModelEvents(): LiveData<ViewModelEvent> = observableEvents
 
     //   Creates a MutableLiveData with value assigned to it. (event)
-    protected fun PostViewModelEvent(event: ViewModelEvent) {
+    fun PostViewModelEvent(event: ViewModelEvent) {
+        Log.e("test", "teeest")
         observableEvents.postValue(event)
     }
 
