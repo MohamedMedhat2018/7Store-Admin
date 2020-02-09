@@ -10,4 +10,11 @@
     <string name="store_item_image_description">store item image</string>
     <string name="store_item_add">Add</string>
     <string name="store_product_cancel">Cancle</string>
+    <string name="from_gall">Choose From Gallery</string>
+    <string name="from_cam">Choose From Camera</string>
+    <string name="cam_and_storage_rationale">Allow Seyanah-UAE to read your device photos or from camera</string>
+    <string name="rationale_ask_ok">Okay</string>
+    <string name="rationale_ask_cancel">Cancel</string>
+
+
 </resources>

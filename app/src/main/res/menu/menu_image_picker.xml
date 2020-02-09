@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/chooseFromGellery"
+        android:icon="@drawable/from_gall"
+        android:title="@string/from_gall"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/chooseFromCamera"
+        android:icon="@drawable/from_cam"
+        android:title="@string/from_cam"
+        app:showAsAction="ifRoom"
+
+        />
+    <!--<item-->
+    <!--android:categoryName="Remove photo"-->
+    <!--android:id="@+id/removePhoto"-->
+    <!--/>-->
+
+</menu>

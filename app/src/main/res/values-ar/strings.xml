@@ -19,5 +19,11 @@
     <string name="store_item_image_description">store item image</string>
     <string name="store_item_add">اضافه</string>
     <string name="store_product_cancel">الغاء</string>
+    <string name="from_gall">Choose From Gallery</string>
+    <string name="from_cam">Choose From Camera</string>
+    <string name="cam_and_storage_rationale">السماح للتطبيق بإجراء إلتقاط صور وتسجيل فيديو؟</string>
+    <string name="rationale_ask_ok">نعم</string>
+    <string name="rationale_ask_cancel">الغاء</string>
+
 
 </resources>
