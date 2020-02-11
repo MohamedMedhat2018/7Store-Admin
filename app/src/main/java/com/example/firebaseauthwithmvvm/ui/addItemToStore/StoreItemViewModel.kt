@@ -2,20 +2,11 @@ package com.example.a7storenavigationdrawer.ui.addItemToStore
 
 import android.net.Uri
 import android.util.Log
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
-import com.squareup.picasso.Picasso
 
-@BindingAdapter("android:src")
-fun setImageUri(view: ImageView, imageUri: Uri?) {
-    view.setImageURI(imageUri)
-    Picasso.get().load(imageUri).into(view)
-    Log.e("setImageUri", "image uri1 Test $imageUri")
-}
 
 //(private val repository: UserRepository)
 class StoreItemViewModel : ViewModel() {
@@ -25,13 +16,15 @@ class StoreItemViewModel : ViewModel() {
 
     fun getProductImage(): LiveData<String> = ProductImageMLiveData
 
-    var uri: Uri
-        get() {
-            return uri
-        }
-        set(value) {
-            uri = value
-        }
+    var uri: Uri? = null
+//        @Bindable
+//        get() {
+//            return uri
+//        }
+//        @Bindable
+//        set(value) {
+//            uri = value
+//        }
 
 //    fun checkUri(): Boolean{
 //        if (uri !=null){
@@ -42,13 +35,16 @@ class StoreItemViewModel : ViewModel() {
 //        return false
 //    }
 
+    fun onclickCheck() {
+        Log.e("StoreItemViewModel", "image uri1 $uri")
+
+    }
 
     fun setImageView() {
         if (uri != null) {
             Log.e("StoreItemViewModel", "image uri1 $uri")
         }
     }
-
 
 
     //onClick

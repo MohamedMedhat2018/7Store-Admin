@@ -52,8 +52,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/store_item_image_description"
-                        android:src='@{viewmodel.uri}'
-                        android:visibility="invisible" />
+                        android:visibility="visible"
+                        app:imageUrl='@{viewmodel.uri}' />
 
                     <RelativeLayout
                         android:id="@+id/ll_container_before_upload"
@@ -261,6 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/rounded_orange_btn"
+                                android:onClick="@{() -> viewmodel.onclickCheck()}"
                                 android:text="Add"
                                 android:textColor="@color/white"
 

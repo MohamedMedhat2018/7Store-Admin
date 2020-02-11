@@ -6,7 +6,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +18,8 @@ import com.example.firebaseauthwithmvvm.databinding.ActivityAddStorageItemBindin
 import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_add_storage_item.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -44,6 +48,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
     private val factory: HomeViewModelFactory by instance()
     override val kodein by kodein()
 
+
     //upload image dialog
     private lateinit var dialog: BottomSheetDialog
     //upload image permission
@@ -58,6 +63,8 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
         //hiding the toolbar
         supportActionBar!!.hide()
+
+
 
         setContentView(R.layout.activity_add_storage_item)
         Log.e(TAG, "AddStoreItemActivity: OnCreate")
@@ -131,10 +138,8 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
                     var uri: Uri = Uri.fromFile(imageFile)
 
                     viewModel.uri = uri
-
                     Log.e(TAG, "URI for Image is " + viewModel.uri)
-//                    Picasso.get().load(uri)
-//                        .into()
+                    Picasso.get().load(uri).into(iv_store_product_image)
 //
                 }
 
@@ -164,7 +169,6 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
-
 //    private fun uploadImageDetails() {
 //        val intent = Intent()
 //        intent.type = "image/*"
@@ -172,4 +176,11 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 //        startActivityForResult(intent, PICKER_IMAGE_REQUEST)
 //    }
 
+}
+
+@BindingAdapter("app:imageUrl")
+fun setImageUri(view: ImageView, imageUri: Uri?) {
+    view.setImageURI(imageUri)
+    Picasso.get().load(imageUri).into(view)
+    Log.e("setImageUri", "image uri1 Test $imageUri")
 }
