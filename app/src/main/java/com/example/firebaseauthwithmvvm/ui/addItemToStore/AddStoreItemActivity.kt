@@ -1,7 +1,6 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,13 +19,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.EasyImage
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
+import java.io.File
 
 
 class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
+
+    val TAG = AddStoreItemActivity::class.java.simpleName
 
     private val PICKER_IMAGE_REQUEST = 1
     lateinit var imageUri: Uri
@@ -37,27 +40,18 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
     }
 
+    private lateinit var viewModel: StoreItemViewModel
+    private val factory: HomeViewModelFactory by instance()
+    override val kodein by kodein()
+
+    //upload image dialog
+    private lateinit var dialog: BottomSheetDialog
+    //upload image permission
     val PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
-
-    private lateinit var dialog: BottomSheetDialog
-
-
-    private lateinit var viewModel: StoreItemViewModel
-    override val kodein by kodein()
-    private val factory: HomeViewModelFactory by instance()
-
-    val TAG = AddStoreItemActivity::class.java.simpleName
-
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        updateProfilePhoto()
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,32 +60,26 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         supportActionBar!!.hide()
 
         setContentView(R.layout.activity_add_storage_item)
-
         Log.e(TAG, "AddStoreItemActivity: OnCreate")
-
 
         val binding: ActivityAddStorageItemBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_add_storage_item)
-//        val handler: Handler =
+
         viewModel = ViewModelProviders.of(this).get(StoreItemViewModel::class.java)
 
-        //create observer on viewModel.observeViewModelEvents() to listen to any view call this method
-//        viewModel.observeViewModelEvents().observe(this, Observer {
-//            val event = it.takeUnless { it == null || it.handler } ?: return@Observer
-////            handlerViewModlAction(event)
-//            Log.e(TAG, "happpppy1")
-//
-//        })
-
-        viewModel.SetImage().observe(this, Observer {
-            Log.e(TAG, "happpppy1 $it")
+        viewModel.getProductImage().observe(this, Observer {
+            Log.e(TAG, "viewModel.SetImage().observe $it")
 //            uploadImageDetails()
             requestCamAndStoragePerms()
         })
 
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+    }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        updateProfilePhoto()
     }
 
     //Start Easy Permission
@@ -101,27 +89,18 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.e(TAG, "Permision $requestCode and $permissions $grantResults")
 
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-
-//     fun updateProfilePhoto()
-//    {
-//        BottomSheetMenuDialogFragment.Builder(this)
-//            .setSheet(R.menu.bottom_sheet)
-//            .setTitle(R.string.options)
-//            .setListener(myListener)
-//            .setObject(myObject)
-//            .show()
-//    }
-
+    //create a dialog for upload Image
     private fun updateProfilePhoto() {
         dialog = BottomSheetBuilder(this, null)
             .setMode(BottomSheetBuilder.MODE_LIST) //                .setMode(BottomSheetBuilder.MODE_GRID)
             .addDividerItem()
             .expandOnStart(true)
-            .setDividerBackground(R.color.grey_55)
+            .setDividerBackground(R.color.black)
 //            .setBackground(R.drawable.ripple_grey)
             .setMenu(R.menu.menu_image_picker)
             .setItemClickListener { item: MenuItem ->
@@ -135,6 +114,34 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 //        dialog.show();
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        EasyImage.handleActivityResult(
+            requestCode,
+            resultCode,
+            data,
+            this,
+            object : DefaultCallback() {
+                override fun onImagePicked(
+                    imageFile: File?,
+                    source: EasyImage.ImageSource?,
+                    type: Int
+                ) {
+                    var uri: Uri = Uri.fromFile(imageFile)
+
+                    viewModel.uri = uri
+
+                    Log.e(TAG, "URI for Image is " + viewModel.uri)
+//                    Picasso.get().load(uri)
+//                        .into()
+//
+                }
+
+            })
+    }
+
+    //check permission granted or not
     @AfterPermissionGranted(RC_CAMERA_AND_STORAGE)
     private fun requestCamAndStoragePerms() {
         if (EasyPermissions.hasPermissions(this, *PERMISSIONS)
@@ -157,36 +164,12 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
-    private fun uploadImageDetails() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, PICKER_IMAGE_REQUEST)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == PICKER_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
-            imageUri = data.data!!
-//            viewModel.weakReference = imageUri
-            var path: String = imageUri.toString()
-            Log.e(TAG, "Image" + path)
-
-
-        }
-
-    }
-
-//    @BindingAdapter({"bind:uploaImage"})
-//    public
-
-    //pass the activity to ViewModelEvent so u can call use any activity method there without use here
-    //so now ViewModelEvent.handler work like Activity now ad do all activity work there  :) :)
-//    protected fun handlerViewModlAction(event: ViewModelEvent) {
-//        event.handle(this)
-//        Log.e(TAG, "happpppy2")
-//
+//    private fun uploadImageDetails() {
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(intent, PICKER_IMAGE_REQUEST)
 //    }
 
 }
