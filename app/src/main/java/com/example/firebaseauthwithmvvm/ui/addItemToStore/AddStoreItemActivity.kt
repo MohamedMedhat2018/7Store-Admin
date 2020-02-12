@@ -6,10 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -179,12 +176,12 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
 }
 
-@BindingAdapter("app:imageUrl")
-fun setImageUri(view: ImageView, imageUri: Uri?) {
-    view.setImageURI(imageUri)
-    Picasso.get().load(imageUri).into(view)
-    Log.e("setImageUri", "image uri1 Test $imageUri")
-}
+//@BindingAdapter("app:imageUrl")
+//fun setImageUri(view: ImageView, imageUri: Uri?) {
+//    view.setImageURI(imageUri)
+//    Picasso.get().load(imageUri).into(view)
+//    Log.e("setImageUri", "image uri1 Test $imageUri")
+//}
 
 //@BindingAdapter("text")
 //fun setText(view: EditText, double: Double) {

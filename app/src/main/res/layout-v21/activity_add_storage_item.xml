@@ -137,7 +137,9 @@
                             android:backgroundTint="@color/light_grey1"
                             android:hint="@string/store_product_name"
                             android:paddingBottom="15dp"
-                            android:text="@{viewmodel.product_name}" />
+                            android:text="@={viewmodel.name}"
+
+                            />
 
 
                         <TextView
@@ -170,8 +172,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:text="@{viewmodel.product_quantity}" />
+                                android:paddingRight="10dp" />
+                            <!--                                android:text="@{viewmodel.product_quantity}" />-->
 
 
                             <Button
@@ -212,8 +214,8 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/edit_text_border"
                                     android:drawableLeft="@drawable/ic_sterling_white"
-                                    android:drawablePadding="12dp"
-                                    android:text="@={viewmodel.product_cost_value}" />
+                                    android:drawablePadding="12dp" />
+                                <!--                                    android:text="@={viewmodel.product_cost_value}" />-->
 
                             </LinearLayout>
 
@@ -264,11 +266,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/rounded_orange_btn"
-                                android:onClick="@{() -> viewmodel.addProductToStore()}"
                                 android:text="Add"
                                 android:textColor="@color/white"
-
                                 />
+                            <!--                            android:onClick="@{() -> viewmodel.addProductToStore()}"-->
 
 
                             <Button
@@ -278,10 +279,8 @@
                                 android:layout_margin="5dp"
                                 android:layout_toRightOf="@id/confirm"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:onClick="@{viewmodel.cancel()}"
                                 android:text="Cancle"
-
-                                />
+                                android:onClick="@{() -> viewmodel.cancel()}" />
 
 
                         </LinearLayout>

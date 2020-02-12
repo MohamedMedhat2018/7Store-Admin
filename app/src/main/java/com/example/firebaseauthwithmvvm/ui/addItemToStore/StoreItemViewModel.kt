@@ -13,6 +13,7 @@ import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
 //(private val repository: UserRepository)
 class StoreItemViewModel : ViewModel() {
 
+
     //get upload image from User
     private var ProductImageMLiveData = MutableLiveData<String>()
 
@@ -58,7 +59,7 @@ class StoreItemViewModel : ViewModel() {
     }
 
     fun cancel() {
-        Log.e("StoreItemViewModel", "Cancel ")
+        Log.e("StoreItemViewModel", " name is ${name.value}")
     }
 
 
@@ -66,6 +67,45 @@ class StoreItemViewModel : ViewModel() {
     *Unused
     *create observer getter
     */
+
+
+//    var pro_name
+
+
+    var name = MutableLiveData<String>()
+
+
+//     var name: String
+//        @Bindable
+//        @Nullable
+//        get() {
+//            return name
+//        }
+//        set(value) {
+//            if (name != value) {
+//                name = value
+//            }
+//        }
+
+
+//    @get:Bindable
+//    var name = StoreProduct()
+//
+//    @Bindable
+//    fun getProductNmae(): String? {
+//        return name.product_name
+//    }
+//
+//    @Bindable
+//    fun setProductNmae(name1: String) {
+//        if (name.product_name != name1) {
+//            name.product_name = name1
+//
+//            notifyPropertyChanged(BR.product_name)
+//        }
+//    }
+
+
     private val observableEvents = MutableLiveData<ViewModelEvent>()
 
     // launch observer setter
@@ -82,5 +122,7 @@ class StoreItemViewModel : ViewModel() {
             Log.e("StoreItemViewModel", "image uri1 $ProductImageMLiveData")
         }
     }
+
+
 }
 

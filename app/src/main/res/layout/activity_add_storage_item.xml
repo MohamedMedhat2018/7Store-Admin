@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/store_product_name"
                             android:paddingBottom="15dp"
-                            android:text="@{viewmodel.product_name}" />
+                            android:text="@={viewmodel.name}" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -153,8 +153,10 @@
                                 android:gravity="center_horizontal"
                                 android:inputType="number"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:text="@{viewmodel.product_quantity}" />
+                                android:paddingRight="10dp" />
+                            <!--                                android:text="@{viewmodel.product_quantity}" -->
+
+                            <!--                                />-->
 
                             <Button
                                 android:id="@+id/btn_store_product_quantity_decrement"
@@ -196,8 +198,10 @@
                                     android:background="@drawable/edit_text_border"
                                     android:drawableStart="@drawable/ic_sterling_white"
                                     android:drawablePadding="@dimen/drawable_padding"
-                                    android:inputType="numberDecimal"
-                                    android:text="@={viewmodel.product_cost_value}" />
+                                    android:inputType="numberDecimal" />
+                                <!--                                    android:text="@={viewmodel.product_cost_value}"-->
+
+                                <!--                                    />-->
 
                             </LinearLayout>
 
@@ -257,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:onClick="@{viewmodel.cancel()}"
+                                android:onClick="@{() ->viewmodel.cancel()}"
                                 android:text="@string/store_product_cancel" />
 
                         </LinearLayout>
