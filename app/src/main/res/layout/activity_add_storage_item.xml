@@ -48,8 +48,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/store_item_image_description"
-                        android:visibility="visible"
-                        app:imageUrl='@{viewmodel.uri}' />
+                        android:visibility="visible" />
+                    <!--                        app:imageUrl='@{viewmodel.productImageUri}'-->
+                    <!--                        />-->
 
                     <RelativeLayout
                         android:id="@+id/ll_container_before_upload"
@@ -71,7 +72,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:onClick="@{()   -> viewmodel.startUploadImage()}"
+                            android:onClick="@{()   -> viewmodel.startUploadProductImage()}"
 
                             />
 
@@ -118,7 +119,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/store_product_name"
-                            android:paddingBottom="15dp" />
+                            android:paddingBottom="15dp"
+                            android:text="@{viewmodel.product_name}" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -152,7 +154,7 @@
                                 android:inputType="number"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@string/store_product_default_quantity" />
+                                android:text="@{viewmodel.product_quantity}" />
 
                             <Button
                                 android:id="@+id/btn_store_product_quantity_decrement"
@@ -195,7 +197,7 @@
                                     android:drawableStart="@drawable/ic_sterling_white"
                                     android:drawablePadding="@dimen/drawable_padding"
                                     android:inputType="numberDecimal"
-                                    android:text="@string/store_product_default_materials_cost" />
+                                    android:text="@={viewmodel.product_cost_value}" />
 
                             </LinearLayout>
 
@@ -222,8 +224,9 @@
                                     android:background="@drawable/edit_text_border"
                                     android:drawableLeft="@drawable/ic_sterling_black"
                                     android:drawablePadding="@dimen/drawable_padding"
-                                    android:inputType="numberDecimal"
-                                    android:text="@string/store_product_default_price" />
+                                    android:inputType="numberDecimal" />
+                                <!--                                    android:text="@{viewmodel.product_price}"-->
+                                <!--                                    />-->
 
                             </LinearLayout>
 
@@ -242,9 +245,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/rounded_orange_btn"
+                                android:onClick="@{() -> viewmodel.addProductToStore()}"
                                 android:text="@string/store_item_add"
-                                android:onClick="@{() -> viewmodel.onclickCheck()}"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+
+                                />
 
                             <Button
                                 android:id="@+id/btn_store_product_cancel"
@@ -252,6 +257,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="?android:attr/selectableItemBackground"
+                                android:onClick="@{viewmodel.cancel()}"
                                 android:text="@string/store_product_cancel" />
 
                         </LinearLayout>

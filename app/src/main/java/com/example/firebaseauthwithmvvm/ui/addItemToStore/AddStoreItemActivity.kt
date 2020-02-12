@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
@@ -137,8 +138,8 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
                 ) {
                     var uri: Uri = Uri.fromFile(imageFile)
 
-                    viewModel.uri = uri
-                    Log.e(TAG, "URI for Image is " + viewModel.uri)
+                    viewModel.ProductImageUri = uri
+                    Log.e(TAG, "URI for Image is " + viewModel.ProductImageUri)
                     Picasso.get().load(uri).into(iv_store_product_image)
 //
                 }
@@ -184,3 +185,9 @@ fun setImageUri(view: ImageView, imageUri: Uri?) {
     Picasso.get().load(imageUri).into(view)
     Log.e("setImageUri", "image uri1 Test $imageUri")
 }
+
+//@BindingAdapter("text")
+//fun setText(view: EditText, double: Double) {
+//    view.setText(double.toString())
+//    Log.e("setImageUri", "image uri1 Test $double")
+//}

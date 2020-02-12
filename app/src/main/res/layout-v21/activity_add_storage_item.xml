@@ -53,7 +53,10 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/store_item_image_description"
                         android:visibility="visible"
-                        app:imageUrl='@{viewmodel.uri}' />
+
+                        />
+                    <!--                        app:imageUrl='@{viewmodel.uri}'-->
+                    <!--                        />-->
 
                     <RelativeLayout
                         android:id="@+id/ll_container_before_upload"
@@ -75,7 +78,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:onClick="@{() -> viewmodel.startUploadImage()}"
+                            android:onClick="@{() -> viewmodel.startUploadProductImage()}"
 
                             />
 
@@ -134,8 +137,7 @@
                             android:backgroundTint="@color/light_grey1"
                             android:hint="@string/store_product_name"
                             android:paddingBottom="15dp"
-
-                            />
+                            android:text="@{viewmodel.product_name}" />
 
 
                         <TextView
@@ -169,7 +171,7 @@
                                 android:gravity="center_horizontal"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@string/store_product_default_quantity" />
+                                android:text="@{viewmodel.product_quantity}" />
 
 
                             <Button
@@ -211,7 +213,7 @@
                                     android:background="@drawable/edit_text_border"
                                     android:drawableLeft="@drawable/ic_sterling_white"
                                     android:drawablePadding="12dp"
-                                    android:text="00.00" />
+                                    android:text="@={viewmodel.product_cost_value}" />
 
                             </LinearLayout>
 
@@ -237,8 +239,9 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/edit_text_border"
                                     android:drawableLeft="@drawable/ic_sterling_black"
-                                    android:drawablePadding="12dp"
-                                    android:text="00.00" />
+                                    android:drawablePadding="12dp" />
+                                <!--                                    android:text="@{viewmodel.product_price}"-->
+                                <!--                                    />-->
 
 
                             </LinearLayout>
@@ -261,7 +264,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/rounded_orange_btn"
-                                android:onClick="@{() -> viewmodel.onclickCheck()}"
+                                android:onClick="@{() -> viewmodel.addProductToStore()}"
                                 android:text="Add"
                                 android:textColor="@color/white"
 
@@ -275,7 +278,10 @@
                                 android:layout_margin="5dp"
                                 android:layout_toRightOf="@id/confirm"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:text="Cancle" />
+                                android:onClick="@{viewmodel.cancel()}"
+                                android:text="Cancle"
+
+                                />
 
 
                         </LinearLayout>
