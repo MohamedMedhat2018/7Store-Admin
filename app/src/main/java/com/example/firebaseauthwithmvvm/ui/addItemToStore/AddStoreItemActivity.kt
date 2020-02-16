@@ -33,19 +33,17 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
     val TAG = AddStoreItemActivity::class.java.simpleName
 
-    private val PICKER_IMAGE_REQUEST = 1
-    lateinit var imageUri: Uri
+    //    private val PICKER_IMAGE_REQUEST = 1
+//    lateinit var imageUri: Uri
 
     companion object {
         //to be constant
         private const val RC_CAMERA_AND_STORAGE = 121
-
     }
 
     private lateinit var viewModel: StoreItemViewModel
     private val factory: HomeViewModelFactory by instance()
     override val kodein by kodein()
-
 
     //upload image dialog
     private lateinit var dialog: BottomSheetDialog
@@ -61,9 +59,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
         //hiding the toolbar
         supportActionBar!!.hide()
-
-
-
+//
         setContentView(R.layout.activity_add_storage_item)
         Log.e(TAG, "AddStoreItemActivity: OnCreate")
 
@@ -135,7 +131,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
                 ) {
                     var uri: Uri = Uri.fromFile(imageFile)
 
-                    viewModel.ProductImageUri = uri
+                    viewModel.ProductImageUri.value = uri
                     Log.e(TAG, "URI for Image is " + viewModel.ProductImageUri)
                     Picasso.get().load(uri).into(iv_store_product_image)
 //

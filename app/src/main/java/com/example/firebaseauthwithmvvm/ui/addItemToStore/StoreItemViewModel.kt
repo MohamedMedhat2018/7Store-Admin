@@ -1,65 +1,64 @@
 package com.example.a7storenavigationdrawer.ui.addItemToStore
 
 import android.net.Uri
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
+import com.squareup.picasso.Picasso
 
 
 //(private val repository: UserRepository)
 class StoreItemViewModel : ViewModel() {
 
+    private val TAG = StoreItemViewModel::class.java.simpleName
 
-    //get upload image from User
-    private var ProductImageMLiveData = MutableLiveData<String>()
+    //2 set upload image from User
+    private var SetProductImage = MutableLiveData<String>()
 
-    fun getProductImage(): LiveData<String> = ProductImageMLiveData
+    //3
+    fun getProductImage(): LiveData<String> = SetProductImage
 
-    var ProductImageUri: Uri? = null
+    //uploaded image
+//    var ProductImageUri: Uri? = null
+    var ProductImageUri: MutableLiveData<Uri> = MutableLiveData()
 
-    var product_name: String? = null
-    var product_quantity: Int = 1
-    var product_cost_value = 0.0
-    var product_price = 0.0
+    var productName: MutableLiveData<String> = MutableLiveData()
+    var productQuantity: MutableLiveData<String> = MutableLiveData()
+    var productCostValue: MutableLiveData<String> = MutableLiveData()
+    var productPrice: MutableLiveData<String> = MutableLiveData()
 
-    //onClick Upload Image
-    fun startUploadProductImage() {
-        //upload data
-        ProductImageMLiveData.value = ""
-        Log.e("StoreItemViewModel", "StartUploadImage")
+    var uploadProductVisibility: MutableLiveData<String> = MutableLiveData()
+
+    fun setVisibility() {
+        if (ProductImageUri != null) {
+
+        }
     }
 
+    //1 onClick Upload Image
+    fun onClickUploadProductImage() {
+        //upload data
+        SetProductImage.value = ""
+        Log.e(TAG, "StartUploadImage")
+    }
 
 //    fun setProductCost():TextWatcher = {}
 
 
-    var product_cost = object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            Log.e("StoreItemViewModel", " afterTextChanged $p0")
-//            product_cost_value = p0
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            Log.e("StoreItemViewModel", " beforeTextChanged $p0 and $p1 , $p2, $p3")
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            Log.e("StoreItemViewModel", " beforeTextChanged $p0 and $p1 , $p2, $p3")
-        }
-
-    }
-
-
     fun addProductToStore() {
-        Log.e("StoreItemViewModel", "image uri1 $ProductImageMLiveData")
+
+        Log.e(TAG, "image uri1 ${SetProductImage.value}")
     }
 
     fun cancel() {
-        Log.e("StoreItemViewModel", " name is ${name.value}")
+        Log.e(
+            TAG,
+            " name is ${productName.value} , ${productCostValue.value} , ${productPrice.value} , ${productQuantity.value}, ${ProductImageUri.value} "
+        )
     }
 
 
@@ -68,13 +67,49 @@ class StoreItemViewModel : ViewModel() {
     *create observer getter
     */
 
+//    var product_cost = object : TextWatcher {
+//        override fun afterTextChanged(p0: Editable?) {
+//            Log.e(TAG, " afterTextChanged $p0")
+////            product_cost_value = p0
+//        }
+//
+//        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//            Log.e(TAG, " beforeTextChanged $p0 and $p1 , $p2, $p3")
+//        }
+//
+//        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//            Log.e(TAG, " beforeTextChanged $p0 and $p1 , $p2, $p3")
+//        }
+//    }
 
 //    var pro_name
 
 
     var name = MutableLiveData<String>()
+    var image = MutableLiveData<Uri>()
+    var imageView = MutableLiveData<String>()
 
 
+    @BindingAdapter("app:imageUrl")
+    fun LoadImage(imageView: ImageView, uri: Uri) {
+        if (uri != null) {
+            Picasso.get().load(uri).into(imageView)
+            Log.e(TAG, " image is, ${image.value}, $uri, $imageView ")
+        } else {
+            Log.e(TAG, " image is null")
+        }
+    }
+
+//fun loadImage(){
+//    Picasso.get().load().into
+//}
+
+//    fun setImage() {
+//        imageView.postValue(image.toString())
+//
+//        Picasso.get().load(uri).into(iv_store_product_image)
+//
+//    }
 //     var name: String
 //        @Bindable
 //        @Nullable
@@ -113,13 +148,13 @@ class StoreItemViewModel : ViewModel() {
 
     //   Creates a MutableLiveData with value assigned to it. (event)
     fun PostViewModelEvent(event: ViewModelEvent) {
-        Log.e("test", "teeest")
+        Log.e(TAG, "teeest")
         observableEvents.postValue(event)
     }
 
     fun setImageView() {
         if (ProductImageUri != null) {
-            Log.e("StoreItemViewModel", "image uri1 $ProductImageMLiveData")
+            Log.e(TAG, "image uri1 $SetProductImage")
         }
     }
 
