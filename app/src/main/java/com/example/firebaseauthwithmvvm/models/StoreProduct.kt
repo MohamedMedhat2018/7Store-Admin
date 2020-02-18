@@ -43,5 +43,4 @@ class StoreProduct(
         set(value) {
             field = value
         }
-
 }

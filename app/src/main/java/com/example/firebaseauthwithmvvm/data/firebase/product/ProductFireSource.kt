@@ -21,7 +21,7 @@ class ProductFireSource {
 //    private val data: FirebaseAuth = FirebaseAuth.getInstance();
 
     public fun addNewOrder(product: Product) = Completable.create { emitter ->
-        RefBase.refProduct.setValue(product)
+        RefBase.refStoreProduct().setValue(product)
             .addOnSuccessListener {
                 if (!emitter.isDisposed) {
                     emitter.onComplete()

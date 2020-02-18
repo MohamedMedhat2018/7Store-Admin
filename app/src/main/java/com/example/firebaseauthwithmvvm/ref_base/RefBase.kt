@@ -1,6 +1,7 @@
 package com.example.firebaseauthwithmvvm.ref_base
 
 import com.example.firebaseauthwithmvvm.constants.Childs
+import com.example.firebaseauthwithmvvm.constants.Constants
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -9,8 +10,7 @@ object RefBase {
     //    private var root: DatabaseReference = FirebaseDatabase
 //        .getInstance().reference;
 //    lateinit var root: DatabaseReference;
-    lateinit var refRoot: DatabaseReference;
-    lateinit var refProduct: DatabaseReference;
+    var refRoot: DatabaseReference;
 
 
     //In Kotlin, we need to use the object keyword to
@@ -23,8 +23,10 @@ object RefBase {
     // used for the first time.
     init {
         refRoot = FirebaseDatabase.getInstance().reference
-        refProduct = refRoot.child(Childs.PRODUCTS.name)
     }
+
+    fun refStoreProduct() = refRoot.child(Childs.PRODUCTS.name)
+
 
 
 }
