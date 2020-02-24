@@ -2,7 +2,9 @@ package com.example.firebaseauthwithmvvm
 
 import android.app.Application
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
+import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.data.repository.UserRepository
+import com.example.firebaseauthwithmvvm.ui.addItemToStore.StoreItemViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.auth.AuthViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
 import org.kodein.di.Kodein
@@ -20,7 +22,9 @@ class FirebaseApplication: Application(), KodeinAware {
 
         bind() from singleton { FirebaseSource() }
         bind() from singleton { UserRepository(instance()) }
+        bind() from singleton { StoreProductRepo(instance()) }
         bind() from singleton { AuthViewModelFactory(instance()) }
+        bind() from singleton { StoreItemViewModelFactory(instance()) }
         bind() from singleton { HomeViewModelFactory(instance()) }
 
     }

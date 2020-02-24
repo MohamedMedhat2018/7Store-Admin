@@ -28,7 +28,7 @@ class ProductFireSource {
                 }
             }
             .addOnFailureListener {
-                Log.e(TAG, it.message)
+                //                Log.e(TAG, it.message)
                 if (!emitter.isDisposed) {
                     emitter.onError(it)
                 }

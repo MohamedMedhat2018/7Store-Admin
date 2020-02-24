@@ -33,6 +33,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
     val TAG = AddStoreItemActivity::class.java.simpleName
 
+
     //    private val PICKER_IMAGE_REQUEST = 1
 //    lateinit var imageUri: Uri
 
@@ -42,7 +43,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
     }
 
     private lateinit var viewModel: StoreItemViewModel
-    private val factory: HomeViewModelFactory by instance()
+    private val factory: StoreItemViewModelFactory by instance()
     override val kodein by kodein()
 
     //upload image dialog
@@ -66,10 +67,10 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         val binding: ActivityAddStorageItemBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_add_storage_item)
 
-        viewModel = ViewModelProviders.of(this).get(StoreItemViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, factory).get(StoreItemViewModel::class.java)
 
         viewModel.getProductImage().observe(this, Observer {
-            Log.e(TAG, "viewModel.SetImage().observe $it")
+            //            Log.e(TAG, "viewModel.SetImage().observe $it")
 //            uploadImageDetails()
             requestCamAndStoragePerms()
         })

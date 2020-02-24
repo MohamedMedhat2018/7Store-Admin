@@ -7,12 +7,14 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
 import com.squareup.picasso.Picasso
+import kotlin.math.log
 
 
 //(private val repository: UserRepository)
-class StoreItemViewModel : ViewModel() {
+class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
 
     private val TAG = StoreItemViewModel::class.java.simpleName
 
@@ -49,9 +51,23 @@ class StoreItemViewModel : ViewModel() {
 //    fun setProductCost():TextWatcher = {}
 
 
+    fun checkFields() {
+//        || getProductImage().equals("")
+        if (getProductImage().equals(null)) {
+            Log.e(TAG, "it's null")
+        } else if (getProductImage().equals("")) {
+            Log.e(TAG, "it's empty")
+        }
+    }
+
+
     fun addProductToStore() {
 
+//        checkFields()
+
         Log.e(TAG, "image uri1 ${SetProductImage.value}")
+
+//        repo.addNewProduct()
     }
 
     fun cancel() {
