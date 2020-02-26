@@ -182,12 +182,13 @@
                                 android:maxLength="2"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@={viewmodel.productQuantity}" />
+                                android:text="@{String.valueOf(viewmodel.productQuantity)}" />
 
                             <Button
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:background="@drawable/btn_bg_rounded_minus" />
+                                android:background="@drawable/btn_bg_rounded_minus"
+                                android:onClick="@{() -> viewmodel.increaseQ()}" />
 
                         </LinearLayout>
 

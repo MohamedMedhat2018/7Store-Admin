@@ -15,7 +15,7 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 
 //mast ad it to manifests  android:name=".FirebaseApplication"
-class FirebaseApplication: Application(), KodeinAware {
+class FirebaseApplication : Application(), KodeinAware {
 
     override val kodein = Kodein.lazy {
         import(androidXModule(this@FirebaseApplication))

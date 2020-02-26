@@ -29,17 +29,17 @@ class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
     var ProductImageUri: MutableLiveData<Uri> = MutableLiveData()
 
     var productName: MutableLiveData<String> = MutableLiveData()
-    var productQuantity: MutableLiveData<String> = MutableLiveData()
+    var productQuantity: MutableLiveData<Int> = MutableLiveData()
     var productCostValue: MutableLiveData<String> = MutableLiveData()
     var productPrice: MutableLiveData<String> = MutableLiveData()
 
     var uploadProductVisibility: MutableLiveData<String> = MutableLiveData()
 
-    fun setVisibility() {
+    /*fun setVisibility() {
         if (ProductImageUri != null) {
 
         }
-    }
+    }*/
 
     //1 onClick Upload Image
     fun onClickUploadProductImage() {
@@ -51,21 +51,62 @@ class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
 //    fun setProductCost():TextWatcher = {}
 
 
+    fun increaseQ() {
+        if (productQuantity.value == null) {
+            productQuantity.value = 1
+            Log.e(TAG, "product test empty1")
+        } else {
+            Log.e(TAG, "product test empty2")
+            productQuantity.value = (productQuantity.value!! + 1)
+        }
+    }
+
+    fun decreaseQ() {
+
+    }
+
+
     fun checkFields() {
 //        || getProductImage().equals("")
-        if (getProductImage().equals(null)) {
-            Log.e(TAG, "it's null")
-        } else if (getProductImage().equals("")) {
-            Log.e(TAG, "it's empty")
+        //for image
+        if (ProductImageUri.value == null) {
+            Log.e(TAG, "select an image")
+        } else if (productName.value?.trim().isNullOrEmpty()) {
+            Log.e(TAG, "product name is empty")
+        } else if (productQuantity.value == null) {
+            Log.e(TAG, "product Quantity is empty")
+        } else if (productCostValue.value?.trim().isNullOrEmpty()) {
+            Log.e(TAG, "product cost is empty")
+        } else if (productPrice.value?.trim().isNullOrEmpty()) {
+            Log.e(TAG, "product price is empty")
         }
     }
 
 
     fun addProductToStore() {
 
-//        checkFields()
+        checkFields()
 
-        Log.e(TAG, "image uri1 ${SetProductImage.value}")
+        if (productName.value?.trim().equals("")) {
+            Log.e(TAG, "it's empty name")
+        }
+
+        if (productName.value?.trim().equals(null)) {
+            Log.e(TAG, "it's name null ")
+        }
+
+        if (productName.value?.trim() == null) {
+            Log.e(TAG, "it's name null 2 ")
+        }
+
+        if (productName.value?.trim().isNullOrEmpty()) {
+            Log.e(TAG, "it's name empty ")
+        }
+
+//        Log.e(TAG, "image uri1 ${SetProductImage.value}  and ${getProductImage().value}  " )
+        Log.e(TAG, "image uri2 ${ProductImageUri.value} ")
+        Log.e(TAG, "it's name empty  ${productName.value?.trim()} and ${productQuantity.value}")
+
 
 //        repo.addNewProduct()
     }
