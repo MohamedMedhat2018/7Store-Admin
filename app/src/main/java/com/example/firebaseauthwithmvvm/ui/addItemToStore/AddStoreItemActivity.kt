@@ -1,19 +1,23 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
 import android.Manifest
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.a7storenavigationdrawer.ui.addItemToStore.StoreItemViewModel
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
+import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.ActivityAddStorageItemBinding
-import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
@@ -29,7 +33,7 @@ import pub.devrel.easypermissions.PermissionRequest
 import java.io.File
 
 
-class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
+class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener {
 
     val TAG = AddStoreItemActivity::class.java.simpleName
 
@@ -43,7 +47,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
     }
 
     private lateinit var viewModel: StoreItemViewModel
-    private val factory: StoreItemViewModelFactory by instance()
+    //    private val factory: StoreItemViewModelFactory by instance()
     override val kodein by kodein()
 
     //upload image dialog
@@ -67,7 +71,13 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
         val binding: ActivityAddStorageItemBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_add_storage_item)
 
-        viewModel = ViewModelProviders.of(this, factory).get(StoreItemViewModel::class.java)
+        viewModel = ViewModelProviders.of(
+            this, StoreItemViewModelFactory(
+                application, StoreProductRepo(
+                    FirebaseSource()
+                )
+            )
+        ).get(StoreItemViewModel::class.java)
 
         viewModel.getProductImage().observe(this, Observer {
             //            Log.e(TAG, "viewModel.SetImage().observe $it")
@@ -77,6 +87,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
 
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+        viewModel.itemStoreListener = this
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -135,7 +146,6 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
                     viewModel.ProductImageUri.value = uri
                     Log.e(TAG, "URI for Image is " + viewModel.ProductImageUri)
                     Picasso.get().load(uri).into(iv_store_product_image)
-//
                 }
 
             })
@@ -162,6 +172,21 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware {
                     .build()
             )
         }
+    }
+
+    override fun onStarted() {
+        progressbar.visibility = View.VISIBLE
+    }
+
+    override fun onSuccess() {
+
+        progressbar.visibility = View.INVISIBLE
+        //Move to page
+    }
+
+    override fun onFailure(message: String) {
+        progressbar.visibility = View.GONE
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
 //    private fun uploadImageDetails() {

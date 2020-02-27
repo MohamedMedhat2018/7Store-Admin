@@ -157,7 +157,7 @@
                                 android:layout_height="25dp"
                                 android:background="@drawable/btn_bg_rounded_plus"
                                 android:padding="0dp"
-
+                                android:onClick="@{() -> viewmodel.increaseQuantity()}"
 
                                 />
 
@@ -170,14 +170,14 @@
                                 android:maxLength="2"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@{String.valueOf(viewmodel.productQuantity)}" />
+                                android:text="@={viewmodel.productQuantity}" />
 
                             <Button
                                 android:id="@+id/btn_store_product_quantity_decrement"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:background="@drawable/btn_bg_rounded_minus"
-                                android:onClick="@{() -> viewmodel.increaseQ()}"
+                                android:onClick="@{() -> viewmodel.decreaseQuantity()}"
 
                                 />
 
@@ -292,6 +292,13 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

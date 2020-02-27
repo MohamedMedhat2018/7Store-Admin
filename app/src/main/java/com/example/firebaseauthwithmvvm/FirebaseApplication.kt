@@ -24,7 +24,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from singleton { UserRepository(instance()) }
         bind() from singleton { StoreProductRepo(instance()) }
         bind() from singleton { AuthViewModelFactory(instance()) }
-        bind() from singleton { StoreItemViewModelFactory(instance()) }
+        bind() from singleton { StoreItemViewModelFactory(Application(), instance()) }
         bind() from singleton { HomeViewModelFactory(instance()) }
 
     }

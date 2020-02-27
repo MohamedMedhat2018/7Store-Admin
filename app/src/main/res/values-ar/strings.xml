@@ -24,6 +24,11 @@
     <string name="cam_and_storage_rationale">السماح للتطبيق بإجراء إلتقاط صور وتسجيل فيديو؟</string>
     <string name="rationale_ask_ok">نعم</string>
     <string name="rationale_ask_cancel">الغاء</string>
+    <string name="select_a_product_image">ختر صوره للمنتج</string>
+    <string name="add_product_name">add product name</string>
+    <string name="add_product_Quantity">add product Quantity</string>
+    <string name="add_product_cost">add product cost</string>
+    <string name="add_product_price">add product price</string>
 
 
 </resources>

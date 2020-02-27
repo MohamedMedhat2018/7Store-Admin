@@ -1,20 +1,26 @@
 package com.example.a7storenavigationdrawer.ui.addItemToStore
 
+import android.app.Application
 import android.net.Uri
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
+import com.example.firebaseauthwithmvvm.ui.addItemToStore.ItemStoreListener
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ViewModelEvent
 import com.squareup.picasso.Picasso
-import kotlin.math.log
 
 
 //(private val repository: UserRepository)
-class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
+class StoreItemViewModel(application: Application, private val repo: StoreProductRepo) :
+    AndroidViewModel(application) {
 
     private val TAG = StoreItemViewModel::class.java.simpleName
 
@@ -35,6 +41,10 @@ class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
 
     var uploadProductVisibility: MutableLiveData<String> = MutableLiveData()
 
+    var itemStoreListener: ItemStoreListener? = null
+
+    val app = application
+
     /*fun setVisibility() {
         if (ProductImageUri != null) {
 
@@ -51,34 +61,44 @@ class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
 //    fun setProductCost():TextWatcher = {}
 
 
-    fun increaseQ() {
-        if (productQuantity.value == null) {
+    fun increaseQuantity() {
+        if (productQuantity.value == null || productQuantity.value!! == 0) {
             productQuantity.value = 1
             Log.e(TAG, "product test empty1")
         } else {
-            Log.e(TAG, "product test empty2")
-            productQuantity.value = (productQuantity.value!! + 1)
+            Log.e(TAG, "product test empty2 ${productQuantity.value} ")
+            productQuantity.value!!.plus(1)
         }
     }
 
-    fun decreaseQ() {
-
+    fun decreaseQuantity() {
+        if (productQuantity.value == null || productQuantity.value == 0) {
+            productQuantity.value = 0
+            Log.e(TAG, "product test empty1")
+        } else {
+            Log.e(TAG, "product test empty2")
+            productQuantity.value!!.minus(1)
+        }
     }
 
 
     fun checkFields() {
-//        || getProductImage().equals("")
         //for image
         if (ProductImageUri.value == null) {
             Log.e(TAG, "select an image")
+            itemStoreListener?.onFailure(app.resources.getString(R.string.select_a_product_image))
         } else if (productName.value?.trim().isNullOrEmpty()) {
             Log.e(TAG, "product name is empty")
+            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_name))
         } else if (productQuantity.value == null) {
             Log.e(TAG, "product Quantity is empty")
+            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_Quantity))
         } else if (productCostValue.value?.trim().isNullOrEmpty()) {
             Log.e(TAG, "product cost is empty")
+            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_cost))
         } else if (productPrice.value?.trim().isNullOrEmpty()) {
             Log.e(TAG, "product price is empty")
+            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_price))
         }
     }
 
@@ -217,4 +237,15 @@ class StoreItemViewModel(private val repo: StoreProductRepo) : ViewModel() {
 
 
 }
+
+@BindingAdapter("android:text")
+fun setText(view: EditText, value: String) {
+    view.setText(Integer.parseInt(value))
+}
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getText(view: EditText): Int {
+    return Integer.parseInt(view.text.toString())
+}
+
 
