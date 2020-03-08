@@ -183,7 +183,9 @@
                                 android:maxLength="2"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@={viewmodel.productQuantity}" />
+                                android:text="@={`` + viewmodel.productQuantity}"
+
+                                />
 
                             <Button
                                 android:layout_width="25dp"
@@ -228,7 +230,7 @@
                                     android:drawablePadding="12dp"
                                     android:inputType="numberDecimal"
                                     android:maxLength="8"
-                                    android:text="@={viewmodel.productCostValue}" />
+                                    android:text="@={`` + viewmodel.productCostValue}" />
 
                             </LinearLayout>
 
@@ -256,7 +258,7 @@
                                     android:drawablePadding="12dp"
                                     android:inputType="numberDecimal"
                                     android:maxLength="8"
-                                    android:text="@={viewmodel.productPrice}" />
+                                    android:text="@={`` + viewmodel.productPrice}" />
 
 
                             </LinearLayout>

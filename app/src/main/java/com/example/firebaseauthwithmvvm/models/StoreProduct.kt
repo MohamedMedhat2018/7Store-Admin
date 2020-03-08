@@ -8,7 +8,7 @@ class StoreProduct(
     product_price: String
 ) {
 
-    private var product_image: String = product_image
+/*    private var product_image: String = product_image
         get() {
             return field
         }
@@ -42,5 +42,5 @@ class StoreProduct(
         }
         set(value) {
             field = value
-        }
+        }*/
 }

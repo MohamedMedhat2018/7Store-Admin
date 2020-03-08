@@ -156,8 +156,8 @@
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:background="@drawable/btn_bg_rounded_plus"
-                                android:padding="0dp"
                                 android:onClick="@{() -> viewmodel.increaseQuantity()}"
+                                android:padding="0dp"
 
                                 />
 
@@ -170,7 +170,9 @@
                                 android:maxLength="2"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="@={viewmodel.productQuantity}" />
+                                android:text="@={`` + viewmodel.productQuantity}"
+
+                                />
 
                             <Button
                                 android:id="@+id/btn_store_product_quantity_decrement"
@@ -218,9 +220,7 @@
                                     android:drawablePadding="@dimen/drawable_padding"
                                     android:inputType="numberDecimal"
                                     android:maxLength="8"
-                                    android:text="@={viewmodel.productCostValue}"
-
-                                    />
+                                    android:text="@={`` + viewmodel.productCostValue}" />
 
                             </LinearLayout>
 
@@ -249,7 +249,7 @@
                                     android:drawablePadding="@dimen/drawable_padding"
                                     android:inputType="numberDecimal"
                                     android:maxLength="8"
-                                    android:text="@={viewmodel.productPrice}" />
+                                    android:text="@={`` + viewmodel.productPrice}" />
 
                             </LinearLayout>
 

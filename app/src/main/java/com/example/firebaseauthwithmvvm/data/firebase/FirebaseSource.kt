@@ -62,7 +62,7 @@ class FirebaseSource {
     }
 
     fun addStoreProduct(product: StoreProduct) = Completable.create { emitter ->
-        var key: String? = (RefBase.refStoreProduct().push().key)
+        val key: String? = (RefBase.refStoreProduct().push().key)
         RefBase.refStoreProduct().child(key!!).setValue(product)
             .addOnCompleteListener {
                 if (!emitter.isDisposed) {

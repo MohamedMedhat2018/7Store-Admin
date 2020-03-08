@@ -180,7 +180,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
 
     override fun onSuccess() {
 
-        progressbar.visibility = View.INVISIBLE
+        progressbar.visibility = View.GONE
         //Move to page
     }
 
