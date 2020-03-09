@@ -1,7 +1,6 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
 import android.Manifest
-import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,7 +23,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_storage_item.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.EasyImage
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -110,11 +108,12 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
     //create a dialog for upload Image
     private fun updateProfilePhoto() {
         dialog = BottomSheetBuilder(this, null)
-            .setMode(BottomSheetBuilder.MODE_LIST) //                .setMode(BottomSheetBuilder.MODE_GRID)
+            .setMode(BottomSheetBuilder.MODE_LIST)
+            //.setMode(BottomSheetBuilder.MODE_GRID)
             .addDividerItem()
             .expandOnStart(true)
             .setDividerBackground(R.color.black)
-//            .setBackground(R.drawable.ripple_grey)
+            //.setBackground(R.drawable.ripple_grey)
             .setMenu(R.menu.menu_image_picker)
             .setItemClickListener { item: MenuItem ->
                 when (item.itemId) {
@@ -123,7 +122,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
                     R.id.chooseFromGellery -> EasyImage.openGallery(this, 0)
                 }
             }
-            .createDialog()
+            .createDialog() as BottomSheetDialog
 //        dialog.show();
     }
 
@@ -178,13 +177,14 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
         progressbar.visibility = View.VISIBLE
     }
 
-    override fun onSuccess() {
+    override fun onSuccess(message: String?) {
 
         progressbar.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         //Move to page
     }
 
-    override fun onFailure(message: String) {
+    override fun onFailure(message: String?) {
         progressbar.visibility = View.GONE
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }

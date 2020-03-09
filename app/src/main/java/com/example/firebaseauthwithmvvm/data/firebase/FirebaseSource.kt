@@ -1,9 +1,11 @@
 package com.example.firebaseauthwithmvvm.data.firebase
 
 import android.util.Log
+import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
 import com.google.firebase.auth.FirebaseAuth
+import com.pixplicity.easyprefs.library.Prefs
 import io.reactivex.Completable
 import kotlin.math.log
 
@@ -42,8 +44,16 @@ class FirebaseSource {
                 if (!emitter.isDisposed) {
                     Log.e(TAG, "FirebaseSoure Register1111 ")
                     if (it.isSuccessful) {
-                        Log.e(TAG, "FirebaseSoure Register Successful ")
                         emitter.onComplete()
+                        Prefs.edit().putString(
+                            Constants.FIREBASE_UID,
+                            FirebaseAuth.getInstance().currentUser?.uid
+                        )
+                        Log.e(
+                            TAG,
+                            "FirebaseSoure Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
+                        )
+
                     } else {
                         Log.e(TAG, "FirebaseSoure Register Failed ")
                         emitter.onError(it.exception!!)
@@ -78,6 +88,28 @@ class FirebaseSource {
                 emitter.onError(it)
             }
     }
+
+    fun UploadImageToFirebase(product: StoreProduct) = Completable.create { emitter ->
+        val key: String? = (RefBase.refStoreProduct().push().key)
+        RefBase.refStoreProduct().child(key!!).setValue(product)
+            .addOnCompleteListener {
+                if (!emitter.isDisposed) {
+                    emitter.onComplete()
+                    if (it.isSuccessful) {
+                        Log.e(TAG, "Product Add Successful ")
+                    } else {
+                        Log.e(TAG, "Product Add Failed ")
+
+                    }
+                }
+            }.addOnFailureListener {
+                emitter.onError(it)
+            }
+    }
+
+
+
+
 
     fun logout() = firebaseAuth.signOut()
 

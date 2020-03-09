@@ -13,9 +13,9 @@ import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.ItemStoreListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -24,6 +24,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+
 
 //(private val repository: UserRepository)
 class StoreItemViewModel(application: Application, private val repo: StoreProductRepo) :
@@ -96,30 +97,27 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
 
     private fun uploadProductPhoto(imagePath: Uri?) {
         if (test(imagePath) != null) {
-            Log.e(TAG, "TEST IMAEG ${test(imagePath)}")
-//            executeUploadTask()
+            Log.e(TAG, "TEST Image ${test(imagePath)}")
+            executeUploadTask()
         }
     }
 
-    lateinit var mbitmap: Bitmap
-    fun test(vararg parms: Uri?): ByteArray? {
-        Log.e(TAG, "111 ${parms}")
+    lateinit var mBitmap: Bitmap
+    fun test(vararg params: Uri?): ByteArray? {
+        Log.e(TAG, "111 $params")
         try {
             //convert uri into bitmap
-            mbitmap =
-                MediaStore.Images.Media.getBitmap(app.contentResolver, parms[0])
-            Log.e(TAG, "222 ${mbitmap}")
-
+            mBitmap = MediaStore.Images.Media.getBitmap(app.contentResolver, params[0])
+            Log.e(TAG, "mBitmap $mBitmap")
         } catch (e: IOException) {
-            Log.e(TAG, "IOException ${e.message}")
+            itemStoreListener?.onFailure(e.message)
         }
-
 
         //convert bitmap to byte array then compress it and upload it
         var byteImage: ByteArray? = null
         Log.e(TAG, "Before compress" + (byteImage?.count()?.div(1000000)))
-        byteImage = getBytesFromBitmap(mbitmap, 100)
-        Log.e(TAG, "After compress" + (byteImage?.count()?.div(1000000)))
+        byteImage = getBytesFromBitmap(mBitmap, 100)
+        Log.e(TAG, "After compress" + (byteImage?.count()?.div(1000000)) + byteImage)
 
         mUploadBytes = byteImage
 
@@ -136,26 +134,108 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
         Toast.makeText(app, "Upload Image", Toast.LENGTH_SHORT).show()
 
         val storeProductId: String? = FirebaseDatabase.getInstance().reference.push().key
+        Log.e(TAG, "storeProductId $storeProductId")
 
-        var storageReference: StorageReference = FirebaseStorage.getInstance().getReference()
+        val referance: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+        val storageReference: StorageReference = FirebaseStorage.getInstance().reference
             .child("StoreProducts/product_image/$storeProductId")
 
         val uploadTask: UploadTask = storageReference.putBytes(mUploadBytes)
-        uploadTask.addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot> {
-            override fun onSuccess(p0: UploadTask.TaskSnapshot?) {
-                Log.e(TAG, "onSuccess: Post Success")
-                val firebaseUri: Uri? = p0?.uploadSessionUri
-                Log.e(TAG, "onSuccess: Firebase download Uri" + firebaseUri.toString())
-                val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
-                //create a model
-                if (storeProductId != null) {
-                    reference
-                        .child("StoreProduct")
-                        .child(storeProductId)
-//                        .setValue(YourModel)
+
+//        val disposableUploadImage = repo
+
+        uploadTask.addOnSuccessListener { taskSnapshot ->
+            if (taskSnapshot.metadata != null) {
+                val result = taskSnapshot.storage.downloadUrl
+                result.addOnSuccessListener { uri: Uri? ->
+                    val imageUrl = uri.toString()
+                    Log.e(TAG, "uri $imageUrl")
+
+                    productModel = StoreProduct(
+                        imageUrl,
+                        productName.value!!,
+                        productQuantity.value.toString(),
+                        productCostValue.value.toString(),
+                        productPrice.value.toString()
+                    )
+
+                    val disposable = repo.addNewProduct(productModel)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            itemStoreListener?.onSuccess(context.getString(R.string.add_product_success))
+                        }, {
+                            itemStoreListener?.onFailure(it.message!!)
+                        })
+                    disposables.add(disposable)
+                }.addOnFailureListener {
+                    itemStoreListener?.onFailure(it.message)
                 }
+
+//                    if (storeProductId != null) {
+//                        referance.child("StoreProduct")
+//                            .child(storeProductId)
+//                            .setValue(productModel)
+//                            .addOnSuccessListener {
+//                                itemStoreListener?.onSuccess(context.getString(R.string.add_product_success))
+//                                //move to preview store product
+//                            }.addOnFailureListener {
+//                                itemStoreListener?.onFailure(it.message)
+//                            }
+//                        Log.e(TAG, "onSuccess: Firebase 2 download Uri $storeProductId")
+//                    }
+
+
+//                }.addOnFailureListener { exception ->
+//                    itemStoreListener?.onFailure(exception.message)
+//                }
             }
-        })
+        }.addOnFailureListener { exception ->
+            itemStoreListener?.onFailure(exception.message)
+        }
+
+//        uploadTask.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                val downloadUri = task.result
+//
+//                val url = downloadUri?.metadata?.reference?.downloadUrl
+//                val url2 = task?.result?.uploadSessionUri
+//                val url3 =
+//                Log.e(
+//                    TAG,
+//                    "onSuccess: Firebase 2 download Uri ${url.toString()}" + "and $downloadUri"
+//                )
+//
+//
+//            }
+//        }
+
+//        uploadTask.addOnSuccessListener { p0 ->
+//            Log.e(TAG, "Failder: Post Success")
+//            val firebaseUri: Uri? = p0?.uploadSessionUri
+//            Log.e(TAG, "onSuccess: Firebase download Uri $firebaseUri")
+//            val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
+//            //create a model
+//            Log.e(TAG, "onSuccess: reference $reference")
+//
+//            productModel = StoreProduct(
+//                ProductImageUri.value.toString(),
+//                productName.value!!,
+//                productQuantity.value.toString(),
+//                productCostValue.value.toString(),
+//                productPrice.value.toString()
+//            )
+//
+//            if (storeProductId != null) {
+//                //                    reference.child("StoreProduct").child(storeProductId)
+//                //                        .setValue(YourModel)
+//                Log.e(TAG, "onSuccess: Firebase 2 download Uri $storeProductId")
+//
+//            }
+//        }.addOnFailureListener(OnFailureListener { exception ->
+//            Log.e(TAG, "exception: Post error ${exception.message}")
+//        })
     }
 
     private fun checkFields(): Boolean {
@@ -187,52 +267,53 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
     fun addProductToStore() {
         itemStoreListener?.onStarted()
         if (checkFields()) {
-
+            itemStoreListener?.onStarted()
             uploadProductPhoto(ProductImageUri.value)
 
-            productModel = StoreProduct(
-                ProductImageUri.value.toString(),
-                productName.value!!,
-                productQuantity.value.toString(),
-                productCostValue.value.toString(),
-                productPrice.value.toString()
-            )
-            val disposable = repo.addNewProduct(productModel)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    itemStoreListener?.onSuccess()
-                }, {
-                    itemStoreListener?.onFailure(it.message!!)
-                })
-            disposables.add(disposable)
-        }
+//            productModel = StoreProduct(
+//                ProductImageUri.value.toString(),
+//                productName.value!!,
+//                productQuantity.value.toString(),
+//                productCostValue.value.toString(),
+//                productPrice.value.toString()
+//            )
+//            val disposable = repo.addNewProduct(productModel)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    itemStoreListener?.onSuccess()
+//                }, {
+//                    itemStoreListener?.onFailure(it.message!!)
+//                })
+//            disposables.add(disposable)
+//        }
 
-        /*if (productName.value?.trim().equals("")) {
-            Log.e(TAG, "it's empty name")
-        }
-
-        if (productName.value?.trim().equals(null)) {
-            Log.e(TAG, "it's name null ")
-        }
-
-        if (productName.value?.trim() == null) {
-            Log.e(TAG, "it's name null 2 ")
-        }
-
-        if (productName.value?.trim().isNullOrEmpty()) {
-            Log.e(TAG, "it's name empty ")
-        }
+//            if (productName.value?.trim().equals("")) {
+//                Log.e(TAG, "it's empty name")
+//            }
+//
+//            if (productName.value?.trim().equals(null)) {
+//                Log.e(TAG, "it's name null ")
+//            }
+//
+//            if (productName.value?.trim() == null) {
+//                Log.e(TAG, "it's name null 2 ")
+//            }
+//
+//            if (productName.value?.trim().isNullOrEmpty()) {
+//                Log.e(TAG, "it's name empty ")
+//            }
 //        Log.e(TAG, "image uri1 ${SetProductImage.value}  and ${getProductImage().value}  " )
-        Log.e(TAG, "image uri2 ${ProductImageUri.value} ")
-        Log.e(TAG, "it's name empty  ${productName.value?.trim()} and ${productQuantity.value}")*/
+//        Log.e(TAG, "image uri2 ${ProductImageUri.value} ")
+//        Log.e(TAG, "it's name empty  ${productName.value?.trim()} and ${productQuantity.value}")
 
-    }
+        }
 
 
 /*    fun getImage(): LiveData<String> {
 
     }*/
+    }
 
     fun cancel() {
         Log.e(
@@ -246,6 +327,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
         disposables.dispose()
     }
 }
+
 
 /*
 *Unused
