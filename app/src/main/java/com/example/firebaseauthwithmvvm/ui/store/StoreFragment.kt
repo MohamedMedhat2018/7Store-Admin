@@ -1,14 +1,21 @@
 package com.example.firebaseauthwithmvvm.ui.store
 
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
+import com.google.android.material.appbar.AppBarLayout
+import kotlinx.android.synthetic.main.fragment_store.*
+import kotlinx.android.synthetic.main.product_content.*
+import kotlin.math.abs
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,14 +24,14 @@ import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [StoreFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [StoreFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+* Activities that contain this fragment must implement the
+* [StoreFragment.OnFragmentInteractionListener] interface
+* to handle interaction events.
+* Use the [StoreFragment.newInstance] factory method to
+* create an instance of this fragment.
+*/
 
-class StoreFragment : Fragment() {
+class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
@@ -38,9 +45,25 @@ class StoreFragment : Fragment() {
 //        }
 //    }
 
-
     private lateinit var storeViewModel: StoreViewModel
     private val TAG = this.javaClass.simpleName
+
+    //    private val PERCENTAGE_TO_SHOW_IMAGE = 65
+    private val PERCENTAGE_TO_SHOW_IMAGE = 80
+    private var mMaxScrollSize = 0
+    private var mIsImageHidden = false
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        app_bar_layout.addOnOffsetChangedListener(this)
+
+//        (activity as AppCompatActivity).supportActionBar?.title = "Title"
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
+//        activity?.actionBar!!.hide()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -50,7 +73,6 @@ class StoreFragment : Fragment() {
 //        val root = inflater.inflate(R.layout.fragment_store, container, false)
 
         //for testing
-
 
         val binding: FragmentStoreBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
@@ -65,6 +87,73 @@ class StoreFragment : Fragment() {
         val root = binding.root
 
         return root
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+
+        if (mMaxScrollSize == 0) mMaxScrollSize = appBarLayout!!.totalScrollRange
+
+        val currentScrollPercentage: Int = (abs(verticalOffset) * 100 / mMaxScrollSize)
+
+        if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
+            Log.e(TAG, "111 LOLLIPOP")
+            if (!mIsImageHidden) {
+                mIsImageHidden = true
+                ViewCompat.animate(iv_wanna_collapse).scaleY(0F).scaleX(0F)
+                    .withEndAction {
+                        //when animation finish
+                        iv_wanna_collapse.isEnabled = false
+                        //                        toolbar.visibility = View.VISIBLE
+                        //                        supportActionBar!!.show()
+                        //                        supportActionBar!!.hide()
+                        tv_product_title.visibility = View.GONE
+                        tv_product_title2.visibility =View.VISIBLE
+//                        (activity as AppCompatActivity).supportActionBar?.show()
+
+                    }.start()
+                Log.e(TAG, "111 LOLLIPOP")
+
+            }
+
+        }
+
+        if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
+            Log.e(TAG, "222 LOLLIPOP $currentScrollPercentage")
+
+            if (mIsImageHidden) {
+                mIsImageHidden = false
+                ViewCompat.animate(iv_wanna_collapse).scaleY(1F).scaleX(1F)
+                    .withEndAction {
+                        //before animation start
+                        //                        supportActionBar!!.hide()
+                        //                        supportActionBar!!.show()
+                        iv_wanna_collapse.isEnabled = true
+                        tv_product_title.visibility = View.VISIBLE
+                        (activity as AppCompatActivity).supportActionBar?.hide()
+                        tv_product_title2.visibility =View.GONE
+
+                    }.start()
+                Log.e(TAG, "222 LOLLIPOP")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Log.e(TAG, "it's LOLLIPOP")
+
+                    val w: Window? = activity?.getWindow(); // in Activity's onCreate() for instance
+                    w?.setFlags(
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+                    )
+                    w?.setFlags(
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    )
+                } else {
+                    Log.e(TAG, "less than LOLLIPOP")
+
+                }
+
+            }
+        }
     }
 
 
@@ -122,4 +211,5 @@ class StoreFragment : Fragment() {
 //                }
 //            }
 //    }
+
 }

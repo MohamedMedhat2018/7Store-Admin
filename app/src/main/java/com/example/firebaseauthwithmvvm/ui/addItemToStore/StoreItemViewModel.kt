@@ -97,6 +97,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
 
     private fun uploadProductPhoto(imagePath: Uri?) {
         if (test(imagePath) != null) {
+            itemStoreListener?.onStarted()
             Log.e(TAG, "TEST Image ${test(imagePath)}")
             executeUploadTask()
         }
@@ -267,7 +268,6 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
     fun addProductToStore() {
         itemStoreListener?.onStarted()
         if (checkFields()) {
-            itemStoreListener?.onStarted()
             uploadProductPhoto(ProductImageUri.value)
 
 //            productModel = StoreProduct(

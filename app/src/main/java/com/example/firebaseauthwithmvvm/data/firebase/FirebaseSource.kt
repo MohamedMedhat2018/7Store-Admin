@@ -59,7 +59,7 @@ class FirebaseSource {
                         emitter.onError(it.exception!!)
                     }
                 } else {
-                    Log.e(TAG, "FirebaseSoure Register error 2 " + emitter.onError(it.exception!!))
+//                    Log.e(TAG, "FirebaseSoure Register error 2 " + emitter.onError(it.exception!!))
                 }
             }.addOnFailureListener {
                 Log.e(TAG, "FirebaseSoure Register Failed3 ")
@@ -106,9 +106,6 @@ class FirebaseSource {
                 emitter.onError(it)
             }
     }
-
-
-
 
 
     fun logout() = firebaseAuth.signOut()

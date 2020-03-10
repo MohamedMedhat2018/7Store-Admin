@@ -106,5 +106,8 @@ dependencies {
     //Preference
     implementation 'com.pixplicity.easyprefs:library:1.9.0'
 
+    // FirebaseUI for Firebase Realtime Database
+    implementation 'com.firebaseui:firebase-ui-database:6.2.0'
+
 
 }

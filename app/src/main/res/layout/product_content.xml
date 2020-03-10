@@ -30,7 +30,7 @@
             android:text="Products"
             android:textColor="@color/gray"
             android:textSize="24dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <include layout="@layout/product_recycler_list_item" />
 

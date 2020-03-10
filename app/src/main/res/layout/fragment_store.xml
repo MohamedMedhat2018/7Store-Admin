@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,25 +10,121 @@
             type="com.example.firebaseauthwithmvvm.ui.store.StoreViewModel" />
     </data>
 
-    <FrameLayout
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.store.StoreFragment">
+        tools:ignore="RtlHardcoded">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/text_store"
+        <!--        <androidx.appcompat.widget.Toolbar-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@color/red"-->
+        <!--            android:visibility="visible"-->
+        <!--            />-->
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:text="@string/hello_blank_fragment"
-            android:textColor="@color/black"
+            android:orientation="vertical"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            />
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:contentScrim="?colorPrimary"
+                app:expandedTitleMarginBottom="94dp"
+                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@string/flexible_title"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!--            Image want to collapse-->
+
+
+                    <!--            <androidx.appcompat.widget.Toolbar-->
+                    <!--            android:id="@+id/toolbar"-->
+                    <!--            android:layout_width="match_parent"-->
+                    <!--            android:layout_height="?attr/actionBarSize"-->
+                    <!--            android:background="?attr/colorPrimary"-->
+                    <!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+                    <!--            app:layout_scrollFlags="scroll|enterAlways"-->
+                    <!--            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+                    <!--            android:visibility="visible"-->
+                    <!--            >-->
+
+                    <ImageView
+                        android:id="@+id/iv_wanna_collapse"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bercelet5" />
+
+
+                    <!--            </androidx.appcompat.widget.Toolbar>-->
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <TextView
+                android:id="@+id/tv_product_title2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/gray2"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Products"
+                android:textColor="@color/gray"
+                android:textSize="28sp"
+                android:visibility="visible" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!--            <LinearLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:gravity="center"-->
+        <!--            >-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_product_title"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@color/gray2"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:paddingLeft="20dp"-->
+        <!--            android:text="Products"-->
+        <!--            android:textColor="@color/gray"-->
+        <!--            android:textSize="24dp"-->
+        <!--            android:visibility="visible"-->
+        <!--            />-->
+        <!--        </LinearLayout>-->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:behavior_overlapTop="78dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include layout="@layout/product_content" />
+
+
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_product"
+            android:id="@+id/fab_add_product_to_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -38,5 +135,7 @@
             android:onClick="@{(v) -> viewmodel.addProduct(v)}"
             android:src="@drawable/ic_add_white_24dp" />
 
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </layout>
