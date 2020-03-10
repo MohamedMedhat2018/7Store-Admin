@@ -1,117 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_parent_product_item"
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    tools:showIn="@layout/product_recycler_list_item">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_items"
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.firebaseauthwithmvvm.ui.store.StoreViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_parent_product_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorPrimary"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
+        android:layout_height="120dp"
+        tools:showIn="@layout/product_recycler_list_item">
 
-        >
-
-        <ImageView
-            android:id="@+id/product_image"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_items"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.9"
-            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorPrimary"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
 
-            />
+            >
 
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.9"
+                android:scaleType="centerCrop"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.3"
-            android:background="@drawable/color_with_two_color">
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:layout_marginBottom="20dp"
-            android:alpha="1"
-            android:paddingLeft="20dp"
-            android:text="Black 7azaza"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/product_qnt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:layout_marginTop="20dp"
-            android:alpha="1"
-            android:drawablePadding="10dp"
-            android:ellipsize="marquee"
-            android:paddingLeft="25dp"
-            android:text="8 Items"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="italic"
-            android:visibility="visible" />
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_gravity="left|bottom"-->
-        <!--                    android:layout_marginBottom="0dp"-->
-        <!--                    android:gravity="bottom"-->
-        <!--                    android:paddingLeft="20dp"-->
-        <!--                    android:paddingBottom="20dp"-->
-        <!--                    android:text="Black 7azaza"-->
-        <!--                    android:textColor="@color/white"-->
-        <!--                    android:textSize="22sp"-->
-        <!--                    android:textStyle="bold"-->
-
-        <!--                    />-->
-
-        <!--            <TextView-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="left|bottom"-->
-        <!--                android:alpha="1"-->
-        <!--                android:paddingLeft="20dp"-->
-        <!--                android:layout_marginBottom="20dp"-->
-        <!--                android:text="Black 7azaza"-->
-        <!--                android:textColor="@color/white"-->
-        <!--                android:textSize="26sp" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_gravity="left|center"-->
-        <!--                    android:layout_marginTop="20dp"-->
-        <!--                    android:alpha="1"-->
-        <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
-        <!--                    android:drawablePadding="10dp"-->
-        <!--                    android:paddingLeft="25dp"-->
-        <!--                    android:text="3 Items"-->
-        <!--                    android:textStyle="italic"-->
-        <!--                    android:textColor="@color/white"-->
-        <!--                    android:textSize="26sp"-->
-        <!--                    android:visibility="visible" />-->
+                />
 
 
-    </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
+                android:background="@drawable/color_with_two_color">
 
-</RelativeLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginBottom="20dp"
+                android:alpha="1"
+                android:paddingLeft="20dp"
+                android:text="Black 7azaza"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/product_qnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginTop="20dp"
+                android:alpha="1"
+                android:drawablePadding="10dp"
+                android:ellipsize="marquee"
+                android:paddingLeft="25dp"
+                android:text="8 Items"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="italic"
+                android:visibility="visible" />
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_gravity="left|bottom"-->
+            <!--                    android:layout_marginBottom="0dp"-->
+            <!--                    android:gravity="bottom"-->
+            <!--                    android:paddingLeft="20dp"-->
+            <!--                    android:paddingBottom="20dp"-->
+            <!--                    android:text="Black 7azaza"-->
+            <!--                    android:textColor="@color/white"-->
+            <!--                    android:textSize="22sp"-->
+            <!--                    android:textStyle="bold"-->
+
+            <!--                    />-->
+
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="left|bottom"-->
+            <!--                android:alpha="1"-->
+            <!--                android:paddingLeft="20dp"-->
+            <!--                android:layout_marginBottom="20dp"-->
+            <!--                android:text="Black 7azaza"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="26sp" />-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_gravity="left|center"-->
+            <!--                    android:layout_marginTop="20dp"-->
+            <!--                    android:alpha="1"-->
+            <!--                    android:drawableLeft="@drawable/ic_shopping_bag"-->
+            <!--                    android:drawablePadding="10dp"-->
+            <!--                    android:paddingLeft="25dp"-->
+            <!--                    android:text="3 Items"-->
+            <!--                    android:textStyle="italic"-->
+            <!--                    android:textColor="@color/white"-->
+            <!--                    android:textSize="26sp"-->
+            <!--                    android:visibility="visible" />-->
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>
 
         

@@ -5,6 +5,9 @@ import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.pixplicity.easyprefs.library.Prefs
 import io.reactivex.Completable
 import kotlin.math.log
@@ -89,6 +92,7 @@ class FirebaseSource {
             }
     }
 
+    //not use yet
     fun UploadImageToFirebase(product: StoreProduct) = Completable.create { emitter ->
         val key: String? = (RefBase.refStoreProduct().push().key)
         RefBase.refStoreProduct().child(key!!).setValue(product)
@@ -105,6 +109,28 @@ class FirebaseSource {
             }.addOnFailureListener {
                 emitter.onError(it)
             }
+    }
+
+
+    fun getStoreProduct() = Completable.create { emitter ->
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                p0.ref.removeEventListener(this)
+                if (p0.exists() && p0.childrenCount > 0) {
+                    for (dataSnap: DataSnapshot in p0.children) {
+                        var storeProduct: StoreProduct? =
+                            dataSnap.getValue(StoreProduct::class.java)
+                        Log.e(TAG, "get data  ${storeProduct?.product_name} ")
+                    }
+                }
+            }
+
+        }
+        RefBase.refStoreProduct().addValueEventListener(postListener)
     }
 
 

@@ -24,12 +24,12 @@ import kotlin.math.abs
 
 /**
  * A simple [Fragment] subclass.
-* Activities that contain this fragment must implement the
-* [StoreFragment.OnFragmentInteractionListener] interface
-* to handle interaction events.
-* Use the [StoreFragment.newInstance] factory method to
-* create an instance of this fragment.
-*/
+ * Activities that contain this fragment must implement the
+ * [StoreFragment.OnFragmentInteractionListener] interface
+ * to handle interaction events.
+ * Use the [StoreFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 
 class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     // TODO: Rename and change types of parameters
@@ -107,7 +107,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         //                        supportActionBar!!.show()
                         //                        supportActionBar!!.hide()
                         tv_product_title.visibility = View.GONE
-                        tv_product_title2.visibility =View.VISIBLE
+                        tv_product_title2.visibility = View.VISIBLE
 //                        (activity as AppCompatActivity).supportActionBar?.show()
 
                     }.start()
@@ -130,7 +130,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         iv_wanna_collapse.isEnabled = true
                         tv_product_title.visibility = View.VISIBLE
                         (activity as AppCompatActivity).supportActionBar?.hide()
-                        tv_product_title2.visibility =View.GONE
+                        tv_product_title2.visibility = View.GONE
 
                     }.start()
                 Log.e(TAG, "222 LOLLIPOP")

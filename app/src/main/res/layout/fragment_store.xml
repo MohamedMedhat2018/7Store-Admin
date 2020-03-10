@@ -10,7 +10,6 @@
             type="com.example.firebaseauthwithmvvm.ui.store.StoreViewModel" />
     </data>
 
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout_parent"
         android:layout_width="match_parent"
@@ -81,7 +80,6 @@
                 android:background="@color/gray2"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:layout_marginTop="20dp"
                 android:text="Products"
                 android:textColor="@color/gray"
                 android:textSize="28sp"
@@ -118,8 +116,11 @@
             app:behavior_overlapTop="78dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <include layout="@layout/product_content" />
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_movies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/product_recycler_list_item" />
 
         </androidx.core.widget.NestedScrollView>
 
