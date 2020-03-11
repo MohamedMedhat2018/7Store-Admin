@@ -35,27 +35,22 @@ class StoreViewModel(application: Application, private val repo: StoreProductRep
 //    val textLiveData: LiveData<String> = textMLiveData
 
     private val _storeProduct = MutableLiveData<List<StoreProduct>>()
+
+    val storeProduct: LiveData<List<StoreProduct>> get() = _storeProduct
+
     private val _storeProductTest = MutableLiveData<String>()
 
-    val storeproductTest: LiveData<String> get() = _storeProductTest
+    val storeProductTest: LiveData<String> get() = _storeProductTest
 
     fun addProduct(view: View) {
         Log.e(TAG, "Test here")
         view.context.startAddProduct()
     }
 
+    lateinit var storeProductList: ArrayList<StoreProduct>
     fun getProduct() {
-        val disposable = repo.getStoreProduct()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _storeProductTest.value = "cool"
-                Log.e(TAG, "GREAT JOB ")
-
-            }, {
-                Log.e(TAG, "Error StoreView Model $it")
-            })
-        disposables.add(disposable)
+        //i need to make it observable
+        storeProductList = repo.getStoreProduct()
     }
 
     override fun onCleared() {

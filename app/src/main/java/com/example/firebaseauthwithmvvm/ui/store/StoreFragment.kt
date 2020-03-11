@@ -87,7 +87,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         storeViewModel.getProduct()
 
-        storeViewModel.storeproductTest.observe(viewLifecycleOwner, Observer {
+        storeViewModel.storeProductTest.observe(viewLifecycleOwner, Observer {
             Log.e(TAG, "it's return $it")
         })
 

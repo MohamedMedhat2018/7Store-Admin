@@ -111,27 +111,33 @@ class FirebaseSource {
             }
     }
 
+    lateinit var storeProductList: ArrayList<StoreProduct>
+    fun getStoreProduct(): ArrayList<StoreProduct> {
 
-    fun getStoreProduct() = Completable.create { emitter ->
         val postListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 Log.e(TAG, "ERROR $p0")
             }
 
-            override fun onDataChange(p0: DataSnapshot) {
+            override fun  onDataChange(p0: DataSnapshot) {
                 p0.ref.removeEventListener(this)
                 if (p0.exists() && p0.childrenCount > 0) {
                     for (dataSnap: DataSnapshot in p0.children) {
-//                        val storeProduct: StoreProduct? =
-//                            dataSnap.getValue(StoreProduct::class.java)
-                        Log.e(TAG, "get data  ${dataSnap.getValue(StoreProduct::class.java)} ")
+                        val storeProduct: StoreProduct? =
+                            dataSnap.getValue(StoreProduct::class.java)
+                        if (storeProduct != null) {
+                            storeProductList.add(storeProduct)
+                        }
+                        Log.e(TAG, "get data  ${storeProduct?.product_price} ")
                     }
                 }
             }
 
         }
         RefBase.refStoreProduct().addValueEventListener(postListener)
+
+        return storeProductList
     }
 
 

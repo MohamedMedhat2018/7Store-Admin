@@ -1,12 +1,28 @@
 package com.example.firebaseauthwithmvvm.models
 
-data class StoreProduct(
-    val product_image: String,
-    val product_name: String,
-    val product_quantity: String,
-    val product_material_Cost: String,
-    val product_price: String
-) {
+class StoreProduct {
+
+    var product_image: String = ""
+    var product_name: String = ""
+    var product_quantity: String = ""
+    var product_material_Cost: String = ""
+    var product_price: String = ""
+
+    constructor(
+        product_image: String,
+        product_name: String,
+        product_quantity: String,
+        product_material_Cost: String,
+        product_price: String
+    ) {
+        this.product_image = product_image
+        this.product_name = product_name
+        this.product_quantity = product_quantity
+        this.product_material_Cost = product_material_Cost
+        this.product_price = product_price
+    }
+
+    constructor() {}
 
 /*    private var product_image: String = product_image
         get() {
