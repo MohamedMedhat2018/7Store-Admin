@@ -7,4 +7,6 @@ class StoreProductRepo(private val source: FirebaseSource) {
 
     fun addNewProduct(product: StoreProduct) = source.addStoreProduct(product)
 //    fun uploadProductImage() = source.UploadImageToFirebase()
+
+    fun getStoreProduct() = source.getStoreProduct()
 }

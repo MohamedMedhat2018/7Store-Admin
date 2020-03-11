@@ -116,15 +116,16 @@ class FirebaseSource {
         val postListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.e(TAG, "ERROR $p0")
             }
 
             override fun onDataChange(p0: DataSnapshot) {
                 p0.ref.removeEventListener(this)
                 if (p0.exists() && p0.childrenCount > 0) {
                     for (dataSnap: DataSnapshot in p0.children) {
-                        var storeProduct: StoreProduct? =
-                            dataSnap.getValue(StoreProduct::class.java)
-                        Log.e(TAG, "get data  ${storeProduct?.product_name} ")
+//                        val storeProduct: StoreProduct? =
+//                            dataSnap.getValue(StoreProduct::class.java)
+                        Log.e(TAG, "get data  ${dataSnap.getValue(StoreProduct::class.java)} ")
                     }
                 }
             }

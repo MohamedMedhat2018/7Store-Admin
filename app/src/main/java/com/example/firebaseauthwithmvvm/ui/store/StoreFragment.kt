@@ -1,5 +1,6 @@
 package com.example.firebaseauthwithmvvm.ui.store
 
+import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
+import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_store.*
@@ -76,14 +80,28 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         val binding: FragmentStoreBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
-        storeViewModel = ViewModelProviders.of(this).get(StoreViewModel::class.java)
+        storeViewModel = ViewModelProviders.of(
+            this,
+            StoreViewModelFactory(Application(), StoreProductRepo(FirebaseSource()))
+        ).get(StoreViewModel::class.java)
+
+        storeViewModel.getProduct()
+
+        storeViewModel.storeproductTest.observe(viewLifecycleOwner, Observer {
+            Log.e(TAG, "it's return $it")
+        })
+
         binding.viewmodel = storeViewModel
+        binding.lifecycleOwner = this
+//        storeViewModel.itemStoreListener = this
 
 //        val textView: TextView = root.findViewById(R.id.text_store)
 //        storeViewModel.textLiveData.observe(this, Observer {
 //            textView.text = it
 //            Log.e(TAG, "test it $it")
 //        })
+
+
         val root = binding.root
 
         return root

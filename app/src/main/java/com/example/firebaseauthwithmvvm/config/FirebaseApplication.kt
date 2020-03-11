@@ -8,6 +8,7 @@ import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.StoreItemViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.auth.AuthViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
+import com.example.firebaseauthwithmvvm.ui.store.StoreViewModelFactory
 import com.pixplicity.easyprefs.library.Prefs
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -27,6 +28,7 @@ class FirebaseApplicationConfig : Application(), KodeinAware {
         bind() from singleton { StoreProductRepo(instance()) }
         bind() from singleton { AuthViewModelFactory(instance()) }
         bind() from singleton { StoreItemViewModelFactory(Application(), instance()) }
+        bind() from singleton { StoreViewModelFactory(Application(), instance()) }
         bind() from singleton { HomeViewModelFactory(instance()) }
 
     }

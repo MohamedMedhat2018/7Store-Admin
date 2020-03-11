@@ -8,7 +8,6 @@ data class StoreProduct(
     val product_price: String
 ) {
 
-
 /*    private var product_image: String = product_image
         get() {
             return field
