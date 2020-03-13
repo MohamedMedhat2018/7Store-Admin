@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.utils.startAddProduct
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -34,9 +35,9 @@ class StoreViewModel(application: Application, private val repo: StoreProductRep
 //
 //    val textLiveData: LiveData<String> = textMLiveData
 
-    private val _storeProduct = MutableLiveData<List<StoreProduct>>()
+    private val _storeProduct = MutableLiveData<ArrayList<StoreProduct>>()
 
-    val storeProduct: LiveData<List<StoreProduct>> get() = _storeProduct
+    val storeProductModel: LiveData<ArrayList<StoreProduct>> = _storeProduct
 
     private val _storeProductTest = MutableLiveData<String>()
 
@@ -47,10 +48,16 @@ class StoreViewModel(application: Application, private val repo: StoreProductRep
         view.context.startAddProduct()
     }
 
-    lateinit var storeProductList: ArrayList<StoreProduct>
-    fun getProduct() {
-        //i need to make it observable
-        storeProductList = repo.getStoreProduct()
+//    lateinit var storeProductList: FirebaseRecyclerOptions<StoreProduct>
+//    fun getProduct() {
+//        //i need to make it observable
+//        storeProductList = repo.getStoreProduct()
+//    }
+
+    fun getProducts() {
+        _storeProduct.value = repo.getStoreProducts()
+        Log.e(TAG, "TEST DATA " + _storeProduct.value)
+//        return repo.getStoreProducts()
     }
 
     override fun onCleared() {

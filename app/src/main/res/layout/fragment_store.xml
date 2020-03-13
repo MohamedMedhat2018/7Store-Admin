@@ -79,11 +79,13 @@
                 android:layout_height="50dp"
                 android:background="@color/gray2"
                 android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:paddingLeft="20dp"
                 android:text="Products"
                 android:textColor="@color/gray"
                 android:textSize="28sp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -113,11 +115,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            android:layout_marginTop="20dp"
             app:behavior_overlapTop="78dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_movies"
+                android:id="@+id/recycler_view_products"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/product_recycler_list_item" />

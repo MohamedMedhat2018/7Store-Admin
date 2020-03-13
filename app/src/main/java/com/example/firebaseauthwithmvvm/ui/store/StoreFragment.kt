@@ -11,10 +11,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
+import com.example.firebaseauthwithmvvm.models.StoreProduct
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_store.*
 import kotlinx.android.synthetic.main.product_content.*
@@ -57,6 +60,9 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var mMaxScrollSize = 0
     private var mIsImageHidden = false
 
+//    private lateinit var option: FirebaseRecyclerOptions<StoreProduct>
+//    private lateinit var sAdapter: StoreAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         app_bar_layout.addOnOffsetChangedListener(this)
@@ -65,10 +71,28 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         (activity as AppCompatActivity).supportActionBar?.hide()
 
-//        activity?.actionBar!!.hide()
+//        recycler_view_products.also {
+//            it.layoutManager = LinearLayoutManager(context)
+//            it.adapter = StoreAdapter(option)
+////            sAdapter.startListening()
+//            Log.e(TAG, "data ${option}")
+//        }
 
+
+//        recycler_view_products.also {
+//            it.layoutManager = LinearLayoutManager(context)
+//            sAdapter = StoreAdapter(option)
+//            it.adapter = sAdapter
+//            sAdapter.startListening()
+//            Log.e(TAG, "data00 ${option}")
+//        }
+
+//        Log.e(TAG, "data2 ${option}")
+
+//        activity?.actionBar!!.hide()
     }
 
+    //    private lateinit var adapter: StoreAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -78,6 +102,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         //for testing
 
+
         val binding: FragmentStoreBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
         storeViewModel = ViewModelProviders.of(
@@ -85,7 +110,32 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             StoreViewModelFactory(Application(), StoreProductRepo(FirebaseSource()))
         ).get(StoreViewModel::class.java)
 
-        storeViewModel.getProduct()
+
+//        storeViewModel.getProduct()
+        storeViewModel.getProducts()
+
+        storeViewModel.storeProductModel.observe(viewLifecycleOwner, Observer { ListOfProducts ->
+            recycler_view_products.also {
+                it.layoutManager = LinearLayoutManager(requireContext())
+                it.setHasFixedSize(true)
+//                option = options
+                val adapter = StoreAdapter2(ListOfProducts)
+                it.adapter = adapter
+//                adapter.startListening()
+                Log.e(TAG, "it's return ${ListOfProducts.size}")
+//                Log.e(TAG, "data3 ${option}")
+            }
+        })
+
+//        option = storeViewModel.getProducts()
+
+//        sAdapter.startListening()
+
+        /*if (option != null) {
+            sAdapter = StoreAdapter(option)
+            recycler_view_products.adapter = sAdapter
+            sAdapter.startListening()
+        }*/
 
         storeViewModel.storeProductTest.observe(viewLifecycleOwner, Observer {
             Log.e(TAG, "it's return $it")
@@ -93,6 +143,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         binding.viewmodel = storeViewModel
         binding.lifecycleOwner = this
+
 //        storeViewModel.itemStoreListener = this
 
 //        val textView: TextView = root.findViewById(R.id.text_store)
@@ -101,11 +152,21 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 //            Log.e(TAG, "test it $it")
 //        })
 
-
         val root = binding.root
 
         return root
     }
+
+    override fun onStart() {
+        super.onStart()
+//        sAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        sAdapter.stopListening()
+    }
+
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
 
@@ -124,7 +185,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         //                        toolbar.visibility = View.VISIBLE
                         //                        supportActionBar!!.show()
                         //                        supportActionBar!!.hide()
-                        tv_product_title.visibility = View.GONE
+//                        tv_product_title.visibility = View.GONE
                         tv_product_title2.visibility = View.VISIBLE
 //                        (activity as AppCompatActivity).supportActionBar?.show()
 
@@ -146,7 +207,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         //                        supportActionBar!!.hide()
                         //                        supportActionBar!!.show()
                         iv_wanna_collapse.isEnabled = true
-                        tv_product_title.visibility = View.VISIBLE
+//                        tv_product_title.visibility = View.VISIBLE
                         (activity as AppCompatActivity).supportActionBar?.hide()
                         tv_product_title2.visibility = View.GONE
 

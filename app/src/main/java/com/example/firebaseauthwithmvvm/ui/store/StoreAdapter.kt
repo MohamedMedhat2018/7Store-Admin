@@ -1,7 +1,7 @@
 package com.example.firebaseauthwithmvvm.ui.store
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +11,8 @@ import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class storeAdapter(options: FirebaseRecyclerOptions<StoreProduct>) :
-    FirebaseRecyclerAdapter<StoreProduct, storeAdapter.viewHolder>(options) {
+class StoreAdapter(options: FirebaseRecyclerOptions<StoreProduct>) :
+    FirebaseRecyclerAdapter<StoreProduct, StoreAdapter.viewHolder>(options) {
 
 
     inner class viewHolder(val productRecyclerListItemBinding: ProductRecyclerListItemBinding) :
@@ -31,6 +31,7 @@ class storeAdapter(options: FirebaseRecyclerOptions<StoreProduct>) :
     )
 
     override fun onBindViewHolder(holder: viewHolder, position: Int, model: StoreProduct) {
-        holder.productRecyclerListItemBinding.viewmodel
+        holder.productRecyclerListItemBinding.viewmodel = model
+        Log.e("TTT", "MODEL IS $model")
     }
 }

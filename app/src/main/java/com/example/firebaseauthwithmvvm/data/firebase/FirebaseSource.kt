@@ -4,12 +4,16 @@ import android.util.Log
 import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.pixplicity.easyprefs.library.Prefs
 import io.reactivex.Completable
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.log
 
 class FirebaseSource {
@@ -111,33 +115,75 @@ class FirebaseSource {
             }
     }
 
-    lateinit var storeProductList: ArrayList<StoreProduct>
-    fun getStoreProduct(): ArrayList<StoreProduct> {
+    //    val storeProductList: ArrayList<StoreProduct>
+    //using FirebaseRecyclerOptions
+    fun getStoreProduct(): FirebaseRecyclerOptions<StoreProduct> {
 
+        val q: Query = RefBase.refRoot.child("PRODUCTS")
+
+        val options: FirebaseRecyclerOptions<StoreProduct> =
+            FirebaseRecyclerOptions.Builder<StoreProduct>()
+                .setQuery(q, StoreProduct::class.java)
+                .build()
+
+        Log.e(TAG, "get data  ${options.snapshots} ")
+
+        return options
+    }
+
+    var modelList = ArrayList<StoreProduct>()
+    var modelList2 = ArrayList<StoreProduct>()
+
+    fun getStoreProducts(): ArrayList<StoreProduct> {
+        val q: Query = RefBase.refRoot.child("PRODUCTS")
         val postListener = object : ValueEventListener {
+
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                Log.e(TAG, "ERROR $p0")
+                Log.e(TAG, "get dataaa  ${p0.message} ")
             }
 
-            override fun  onDataChange(p0: DataSnapshot) {
-                p0.ref.removeEventListener(this)
+            override fun onDataChange(p0: DataSnapshot) {
+//                p0.ref.removeEventListener(this)
                 if (p0.exists() && p0.childrenCount > 0) {
-                    for (dataSnap: DataSnapshot in p0.children) {
-                        val storeProduct: StoreProduct? =
-                            dataSnap.getValue(StoreProduct::class.java)
-                        if (storeProduct != null) {
-                            storeProductList.add(storeProduct)
+                    val children = p0.children
+                    children.forEach {
+                        if (it != null) {
+                            Log.e(
+                                TAG,
+                                "get data size5  ${it.getValue(StoreProduct::class.java)!!} "
+                            )
+
+                            modelList.add(it.getValue(StoreProduct::class.java)!!)
                         }
-                        Log.e(TAG, "get data  ${storeProduct?.product_price} ")
+                        Log.e(TAG, "get data size  ${modelList.size} ")
                     }
+                    modelList2 = modelList
+                    /*   for (dataSnap: DataSnapshot in p0.children) {
+                           val storeProduct: StoreProduct? =
+                               dataSnap.getValue(StoreProduct::class.java)
+                           if (storeProduct != null) {
+                               Log.e(TAG, "get dataaaa  ${p0.childrenCount} ")
+                               modelList.add(storeProduct)
+                           }
+                           Log.e(TAG, "get data size  ${modelList.size} ")
+                       }*/
+                    Log.e(TAG, "get data size4  ${modelList.size} ")
                 }
             }
-
         }
-        RefBase.refStoreProduct().addValueEventListener(postListener)
+        q.addListenerForSingleValueEvent(postListener)
+        Log.e(TAG, "get data size7  ${modelList.size} ")
 
-        return storeProductList
+        if (modelList.isEmpty()) {
+            Log.e(TAG, "get data size3  ${modelList.size} ")
+            return ArrayList<StoreProduct>()
+        }
+
+        Log.e(TAG, "get data size2  ${modelList.size} ")
+
+        return modelList2
+
+
     }
 
 
