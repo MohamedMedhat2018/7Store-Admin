@@ -16,11 +16,8 @@ import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
-import com.example.firebaseauthwithmvvm.models.StoreProduct
-import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_store.*
-import kotlinx.android.synthetic.main.product_content.*
 import kotlin.math.abs
 
 
@@ -114,6 +111,8 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 //        storeViewModel.getProduct()
         storeViewModel.getProducts()
 
+
+
         storeViewModel.storeProductModel.observe(viewLifecycleOwner, Observer { ListOfProducts ->
             recycler_view_products.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
@@ -124,6 +123,12 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 //                adapter.startListening()
                 Log.e(TAG, "it's return ${ListOfProducts.size}")
 //                Log.e(TAG, "data3 ${option}")
+
+
+                for (product in ListOfProducts) {
+                    Log.e(TAG, "Product name  = ${product.product_name}")
+                }
+
             }
         })
 
@@ -155,16 +160,6 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         val root = binding.root
 
         return root
-    }
-
-    override fun onStart() {
-        super.onStart()
-//        sAdapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-//        sAdapter.stopListening()
     }
 
 
@@ -217,7 +212,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Log.e(TAG, "it's LOLLIPOP")
 
-                    val w: Window? = activity?.getWindow(); // in Activity's onCreate() for instance
+                    val w: Window? = activity?.window // in Activity's onCreate() for instance
                     w?.setFlags(
                         WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                         WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
