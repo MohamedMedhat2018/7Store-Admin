@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
 
     override fun onStarted() {
         super.onStart()
-        progressbar.visibility = View.VISIBLE
+        progressbar_login.visibility = View.VISIBLE
 
         Log.e(TAG, "Login test "   )
 
@@ -58,14 +58,14 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
     }
 
     override fun onSuccess() {
-        progressbar.visibility = View.GONE
+        progressbar_login.visibility = View.GONE
         Log.e(TAG, "Login test2 "   )
 
         startHomeActivty()
     }
 
     override fun onFailure(message: String) {
-        progressbar.visibility = View.GONE
+        progressbar_login.visibility = View.GONE
         Toast.makeText(this, message, LENGTH_SHORT).show()
     }
 

@@ -1,5 +1,6 @@
 package com.example.firebaseauthwithmvvm.ui.add_product
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +18,7 @@ class addProductActivity : AppCompatActivity() {
     val products: ArrayList<Product> = ArrayList()
     val TAG: String = this.javaClass.simpleName
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)

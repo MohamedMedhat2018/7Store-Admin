@@ -13,6 +13,7 @@ import com.example.firebaseauthwithmvvm.databinding.ActivitySignUpBinding
 import com.example.firebaseauthwithmvvm.ui.home2.Main2Activity
 import com.example.firebaseauthwithmvvm.utils.startHomeActivty
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -42,7 +43,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener, KodeinAware {
     }
 
     override fun onStarted() {
-        progressbar.visibility = View.VISIBLE
+        progressbar_sign_up.visibility = View.VISIBLE
 
         Intent(this, Main2Activity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -51,13 +52,13 @@ class SignUpActivity : AppCompatActivity(), AuthListener, KodeinAware {
     }
 
     override fun onSuccess() {
-        progressbar.visibility = View.GONE
+        progressbar_sign_up.visibility = View.GONE
         startHomeActivty()
 
     }
 
     override fun onFailure(message: String) {
-        progressbar.visibility = View.VISIBLE
+        progressbar_sign_up.visibility = View.VISIBLE
         Toast.makeText(this, message, LENGTH_SHORT).show()
     }
 }

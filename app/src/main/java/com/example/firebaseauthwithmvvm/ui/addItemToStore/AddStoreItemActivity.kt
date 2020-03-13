@@ -1,6 +1,8 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +22,7 @@ import com.example.firebaseauthwithmvvm.databinding.ActivityAddStorageItemBindin
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_add_storage_item.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -29,11 +32,14 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import java.io.File
+import java.security.AccessController.getContext
 
 
 class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener {
 
     val TAG = AddStoreItemActivity::class.java.simpleName
+
+    lateinit var sDialog: SpotsDialog
 
 
     //    private val PICKER_IMAGE_REQUEST = 1
@@ -62,10 +68,13 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
 
         //hiding the toolbar
         supportActionBar!!.hide()
-//
+
+        sDialog = SpotsDialog.Builder().setContext(this)
+            .setCancelable(false)
+            .build() as SpotsDialog
+
         setContentView(R.layout.activity_add_storage_item)
         Log.e(TAG, "AddStoreItemActivity: OnCreate")
-
         val binding: ActivityAddStorageItemBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_add_storage_item)
 
@@ -173,19 +182,23 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
         }
     }
 
+
     override fun onStarted() {
-        progressbar.visibility = View.VISIBLE
+//        progress_bar.visibility = View.VISIBLE
+        sDialog.show()
+        Log.e(TAG, "Started progress ")
     }
 
     override fun onSuccess(message: String?) {
-
-        progressbar.visibility = View.GONE
+//        progress_bar.visibility = View.GONE
+        sDialog.hide()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         //Move to page
     }
 
     override fun onFailure(message: String?) {
-        progressbar.visibility = View.GONE
+//        progress_bar.visibility = View.GONE
+        sDialog.hide()
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 

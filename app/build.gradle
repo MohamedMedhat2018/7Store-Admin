@@ -109,6 +109,10 @@ dependencies {
     // FirebaseUI for Firebase Realtime Database
     implementation 'com.firebaseui:firebase-ui-database:6.2.0'
 
+    //spots-dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+
 
 
 }
