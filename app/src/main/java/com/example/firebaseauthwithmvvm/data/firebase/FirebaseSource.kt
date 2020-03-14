@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
+import com.example.firebaseauthwithmvvm.ui.store.MyCallback
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -134,7 +135,7 @@ class FirebaseSource {
     var modelList = ArrayList<StoreProduct>()
     var modelList2 = ArrayList<StoreProduct>()
 
-    fun getStoreProducts(): ArrayList<StoreProduct> {
+    fun getStoreProducts(myCallback: MyCallback) {
         val q: Query = RefBase.refRoot.child("PRODUCTS")
         val postListener = object : ValueEventListener {
 
@@ -152,12 +153,13 @@ class FirebaseSource {
                                 TAG,
                                 "get data size5  ${it.getValue(StoreProduct::class.java)!!} "
                             )
-
                             modelList.add(it.getValue(StoreProduct::class.java)!!)
                         }
                         Log.e(TAG, "get data size  ${modelList.size} ")
                     }
-                    modelList2 = modelList
+                    myCallback.onCallBack(modelList)
+//                    modelList2 = modelList
+
                     /*   for (dataSnap: DataSnapshot in p0.children) {
                            val storeProduct: StoreProduct? =
                                dataSnap.getValue(StoreProduct::class.java)
@@ -176,12 +178,12 @@ class FirebaseSource {
 
         if (modelList.isEmpty()) {
             Log.e(TAG, "get data size3  ${modelList.size} ")
-            return ArrayList<StoreProduct>()
+//            return ArrayList<StoreProduct>()
         }
 
         Log.e(TAG, "get data size2  ${modelList.size} ")
 
-        return modelList2
+//        return modelList2
 
 
     }

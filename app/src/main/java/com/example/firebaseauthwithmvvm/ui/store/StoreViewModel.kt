@@ -55,7 +55,11 @@ class StoreViewModel(application: Application, private val repo: StoreProductRep
 //    }
 
     fun getProducts() {
-        _storeProduct.value = repo.getStoreProducts()
+        repo.getStoreProducts(object : MyCallback {
+            override fun onCallBack(listOfModel: ArrayList<StoreProduct>) {
+                _storeProduct.value = listOfModel
+            }
+        })
         Log.e(TAG, "TEST DATA " + _storeProduct.value)
 //        return repo.getStoreProducts()
     }
