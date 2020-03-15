@@ -13,9 +13,6 @@ import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.pixplicity.easyprefs.library.Prefs
 import io.reactivex.Completable
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class FirebaseSource {
 
@@ -132,10 +129,11 @@ class FirebaseSource {
         return options
     }
 
-    var modelList = ArrayList<StoreProduct>()
+
     var modelList2 = ArrayList<StoreProduct>()
 
     fun getStoreProducts(myCallback: MyCallback) {
+        var modelList = ArrayList<StoreProduct>()
         val q: Query = RefBase.refRoot.child("PRODUCTS")
         val postListener = object : ValueEventListener {
 
@@ -159,6 +157,10 @@ class FirebaseSource {
                     }
                     myCallback.onCallBack(modelList)
 //                    modelList2 = modelList
+//                    modelList2 = modelList
+//                    for (product in modelList){
+//                        Log.e(TAG, "Product name  = ${product.product_name}")
+//                    }
 
                     /*   for (dataSnap: DataSnapshot in p0.children) {
                            val storeProduct: StoreProduct? =
@@ -184,6 +186,17 @@ class FirebaseSource {
         Log.e(TAG, "get data size2  ${modelList.size} ")
 
 //        return modelList2
+//        Log.e(TAG, "get data size7  ${modelList.size} ")
+
+        if (modelList.isEmpty()) {
+            Log.e(TAG, "get data size3  ${modelList.size} ")
+//            return ArrayList<StoreProduct>()
+        }
+//
+        Log.e(TAG, "get data size2  ${modelList.size} ")
+
+//        return modelList2
+//        return modelList
 
 
     }
