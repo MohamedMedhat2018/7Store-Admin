@@ -11,10 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.databinding.ActivitySignUpBinding
 import com.example.firebaseauthwithmvvm.ui.home.MainActivity
-<<<<<<< HEAD
-=======
-import com.example.firebaseauthwithmvvm.ui.home2.Main2Activity
->>>>>>> ec1c8462b9a3ec05da938cc31e7a93db8f3d021a
 import com.example.firebaseauthwithmvvm.utils.startHomeActivty
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -49,10 +45,10 @@ class SignUpActivity : AppCompatActivity(), AuthListener, KodeinAware {
     override fun onStarted() {
         progressbar_sign_up.visibility = View.VISIBLE
 
-        Intent(this, MainActivity::class.java).also {
-            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(it)
-        }
+//        Intent(this, MainActivity::class.java).also {
+//            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(it)
+//        }
     }
 
     override fun onSuccess() {

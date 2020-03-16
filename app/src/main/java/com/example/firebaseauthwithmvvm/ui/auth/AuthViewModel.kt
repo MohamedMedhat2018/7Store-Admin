@@ -85,7 +85,6 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
                 authListener?.onSuccess()
 
-
             }, {
                 authListener?.onFailure(it.message!!)
                 Log.e(TAG, "Register0 " + email + " and " + pass + " error " + it.message!!)
