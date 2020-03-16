@@ -11,6 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.databinding.ActivitySignUpBinding
 import com.example.firebaseauthwithmvvm.ui.home.MainActivity
+<<<<<<< HEAD
+=======
+import com.example.firebaseauthwithmvvm.ui.home2.Main2Activity
+>>>>>>> ec1c8462b9a3ec05da938cc31e7a93db8f3d021a
 import com.example.firebaseauthwithmvvm.utils.startHomeActivty
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*

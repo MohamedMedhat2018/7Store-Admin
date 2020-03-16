@@ -78,7 +78,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
+<<<<<<< HEAD
                 android:layout_marginBottom="0dp"
+=======
+                android:layout_marginBottom="10dp"
+>>>>>>> ec1c8462b9a3ec05da938cc31e7a93db8f3d021a
                 android:background="@color/gray2"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
@@ -117,7 +121,8 @@
             android:layout_marginTop="20dp"
             android:scrollbars="none"
             app:behavior_overlapTop="78dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_products"
