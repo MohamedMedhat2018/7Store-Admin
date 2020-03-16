@@ -3,6 +3,7 @@ package com.example.firebaseauthwithmvvm.data.firebase
 import android.util.Log
 import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
+import com.example.firebaseauthwithmvvm.models.Users
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
 import com.example.firebaseauthwithmvvm.ui.store.MyCallback
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -22,7 +23,7 @@ class FirebaseSource {
     private val TAG = FirebaseSource::class.java.canonicalName
 
     private val firebaseAuth: FirebaseAuth by lazy {
-        Log.e(TAG, "FirebaseSoure " + FirebaseAuth.getInstance())
+        Log.e(TAG, "FirebaseSource " + FirebaseAuth.getInstance())
         FirebaseAuth.getInstance()
     }
 
@@ -39,41 +40,51 @@ class FirebaseSource {
                 else
                     emitter.onError(it.exception!!)
             } else {
-                Log.e(TAG, "FirebaseSoure Not Register2222 ")
+                Log.e(TAG, "FirebaseSource Not Register2222 ")
             }
         }
     }
 
     fun register(email: String, pass: String) = Completable.create { emitter ->
-        Log.e(TAG, "FirebaseSoure Register999 ")
+        Log.e(TAG, "FirebaseSource Register999 ")
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener {
-                Log.e(TAG, "FirebaseSoure Register Failed3.1 ")
+                Log.e(TAG, "FirebaseSource Register Failed3.1 ")
                 if (!emitter.isDisposed) {
-                    Log.e(TAG, "FirebaseSoure Register1111 ")
+                    Log.e(TAG, "FirebaseSource Register1111 ")
                     if (it.isSuccessful) {
-                        emitter.onComplete()
                         Prefs.edit().putString(
                             Constants.FIREBASE_UID,
                             FirebaseAuth.getInstance().currentUser?.uid
                         )
+                        val Uid = FirebaseAuth.getInstance().currentUser?.uid
+                        if (Uid != null) {
+                            val user: Users = Users(Uid, email, pass)
+                            RefBase.addUser(email, pass).child(Uid).setValue(user)
+                                .addOnCompleteListener { task ->
+                                    emitter.onComplete()
+                                    if (task.isSuccessful) {
+                                        Log.e(TAG, "User Add Successful ")
+                                    }
+                                }
+                        }
                         Log.e(
                             TAG,
-                            "FirebaseSoure Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
+                            "FirebaseSource Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
                         )
 
                     } else {
-                        Log.e(TAG, "FirebaseSoure Register Failed ")
+                        Log.e(TAG, "FirebaseSource Register Failed ")
                         emitter.onError(it.exception!!)
                     }
                 } else {
-//                    Log.e(TAG, "FirebaseSoure Register error 2 " + emitter.onError(it.exception!!))
+//                    Log.e(TAG, "FirebaseSource Register error 2 " + emitter.onError(it.exception!!))
                 }
             }.addOnFailureListener {
-                Log.e(TAG, "FirebaseSoure Register Failed3 ")
+                Log.e(TAG, "FirebaseSource Register Failed3 ")
 
             }.addOnSuccessListener {
-                Log.e(TAG, "FirebaseSoure Register Failed3.2 ")
+                Log.e(TAG, "FirebaseSource Register Failed3.2 ")
 
             }
 
