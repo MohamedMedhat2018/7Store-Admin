@@ -1,6 +1,9 @@
 package com.example.firebaseauthwithmvvm.data.firebase
 
+import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
+import com.example.firebaseauthwithmvvm.constants.Childs
 import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.models.Users
@@ -43,9 +46,30 @@ class FirebaseSource {
                 }
             }
             .addOnSuccessListener {
+                RefBase.getUser().child(Childs.email.name).equalTo(email).addValueEventListener(
+                    object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            if (p0.exists() && p0.childrenCount > 0){
+                                p0.children.forEach {
+                                        val user: Users? = it.getValue(Users::class.java)
+                                        if (TextUtils.equals(user?.password, pass)){
+                                            Log.e(TAG, "Success login ")
+                                            //action
+
+
+                                        }
+                                }
+
+                            }
+                        }
+
+                    })
 
             }
-
     }
 
     fun register(email: String, pass: String) = Completable.create { emitter ->
@@ -73,14 +97,9 @@ class FirebaseSource {
                 }
             }
             .addOnSuccessListener {
-                Prefs.edit().putString(
-                    Constants.FIREBASE_UID,
-                    FirebaseAuth.getInstance().currentUser?.uid
-                )
+                Prefs.edit().putString(Constants.FIREBASE_UID, FirebaseAuth.getInstance().currentUser?.uid)
                 val Uid = FirebaseAuth.getInstance().currentUser?.uid
-                Log.e(
-                    TAG,
-                    "FirebaseSource Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
+                Log.e(TAG, "FirebaseSource Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
                 )
                 if (Uid != null) {
                     val user: Users = Users(Uid, email, pass)
@@ -95,7 +114,6 @@ class FirebaseSource {
             .addOnFailureListener {
                 Log.e(TAG, "FirebaseSource Register Failed3 " + it.message)
             }
-
     }
 
     fun addStoreProduct(product: StoreProduct) = Completable.create { emitter ->

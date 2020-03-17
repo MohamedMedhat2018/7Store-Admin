@@ -17,5 +17,7 @@ object RefBase {
 
     fun addUser(email: String, pass: String) = refRoot.child(Childs.USERS.name)
 
+    fun getUser() = refRoot.child(Childs.USERS.name)
+
 
 }
