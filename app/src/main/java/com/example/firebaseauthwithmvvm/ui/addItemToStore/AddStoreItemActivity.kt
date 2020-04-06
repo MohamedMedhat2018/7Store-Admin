@@ -19,6 +19,7 @@ import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.ActivityAddStorageItemBinding
+import com.example.firebaseauthwithmvvm.ui.home.MainActivity
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
@@ -51,11 +52,13 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
     }
 
     private lateinit var viewModel: StoreItemViewModel
+
     //    private val factory: StoreItemViewModelFactory by instance()
     override val kodein by kodein()
 
     //upload image dialog
     private lateinit var dialog: BottomSheetDialog
+
     //upload image permission
     val PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
@@ -92,9 +95,20 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
             requestCamAndStoragePerms()
         })
 
+        viewModel.getOnEndLive().observe(this, Observer {
+//            if (it != null && it)
+//                Log.e(TAG, "CHECK HERE")
+            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+        })
+
+
+
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         viewModel.itemStoreListener = this
+
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

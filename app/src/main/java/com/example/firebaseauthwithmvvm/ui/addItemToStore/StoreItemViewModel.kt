@@ -65,6 +65,13 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
     private lateinit var mSelectedUri: Uri
     private lateinit var mUploadBytes: ByteArray
 
+
+    private val onEndLive: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun getOnEndLive(): MutableLiveData<Boolean> {
+        return onEndLive
+    }
+
     /*fun setVisibility() {
         if (ProductImageUri != null) {
 
@@ -316,10 +323,8 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
     }
 
     fun cancel() {
-        Log.e(
-            TAG,
-            " name is ${productName.value} , ${productCostValue.value} , ${productPrice.value} , ${productQuantity.value}, ${ProductImageUri.value} "
-        )
+//        Log.e(TAG, " name is ${productName.value} , ${productCostValue.value} , ${productPrice.value} , ${productQuantity.value}, ${ProductImageUri.value} ")
+        onEndLive.value = true
     }
 
     override fun onCleared() {

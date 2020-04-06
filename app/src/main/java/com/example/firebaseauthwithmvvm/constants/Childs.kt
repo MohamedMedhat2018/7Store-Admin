@@ -4,6 +4,7 @@ enum class Childs {
     PRODUCTS,
     USERS,
     email,
+    PRODUCT
 
 
 }

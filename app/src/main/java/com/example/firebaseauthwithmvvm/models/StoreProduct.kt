@@ -1,9 +1,11 @@
 package com.example.firebaseauthwithmvvm.models
 
+import java.io.Serializable
+
 class StoreProduct {
 
     var product_image: String = ""
-    var product_name: String = ""
+    var product_name: String = "d"
     var product_quantity: String = ""
     var product_material_Cost: String = ""
     var product_price: String = ""

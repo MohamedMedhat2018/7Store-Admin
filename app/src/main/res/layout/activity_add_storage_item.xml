@@ -298,7 +298,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:onClick="@{() ->viewmodel.cancel()}"
+                                android:onClick="@{() -> viewmodel.cancel()}"
                                 android:text="@string/store_product_cancel" />
 
                         </LinearLayout>

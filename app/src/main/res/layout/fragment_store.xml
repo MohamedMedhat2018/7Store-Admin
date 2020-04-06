@@ -65,6 +65,8 @@
                         android:id="@+id/iv_wanna_collapse"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
+                        android:layout_marginBottom="0dp"
+                        android:paddingBottom="20dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bercelet5" />
 
@@ -114,7 +116,7 @@
             android:id="@+id/nested_scroll_view_product"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:scrollbars="none"
             app:behavior_overlapTop="78dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">

@@ -1,6 +1,7 @@
 package com.example.firebaseauthwithmvvm.ui.store
 
 import android.app.Application
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +14,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
+import com.example.firebaseauthwithmvvm.models.StoreProduct
+import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsActivity
+import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsViewModel
+import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
+import com.google.gson.Gson
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.fragment_store.*
 import kotlin.math.abs
 
@@ -35,7 +43,7 @@ import kotlin.math.abs
  * create an instance of this fragment.
  */
 
-class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
+class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener, OnItemClick {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
@@ -56,6 +64,8 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private val PERCENTAGE_TO_SHOW_IMAGE = 80
     private var mMaxScrollSize = 0
     private var mIsImageHidden = false
+
+//    lateinit var storeDetailsViewModel: StoreDetailsViewModel
 
 //    private lateinit var option: FirebaseRecyclerOptions<StoreProduct>
 //    private lateinit var sAdapter: StoreAdapter
@@ -99,11 +109,19 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         //for testing
 
+        //create viewModel for display details
+//        storeDetailsViewModel = activity?.run {
+//            ViewModelProviders.of(
+//                this,
+//                StoreDetailsViewModelFactory()
+//            ).get(StoreDetailsViewModel::class.java)
+//        } ?: throw Exception("Invalid Activity")
+
 
         val binding: FragmentStoreBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
         storeViewModel = ViewModelProviders.of(
-            this,
+            this.activity!!,
             StoreViewModelFactory(Application(), StoreProductRepo(FirebaseSource()))
         ).get(StoreViewModel::class.java)
 
@@ -118,12 +136,11 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
 //                option = options
-                val adapter = StoreAdapter2(ListOfProducts)
+                val adapter = StoreAdapter(ListOfProducts, this)
                 it.adapter = adapter
 //                adapter.startListening()
                 Log.e(TAG, "it's return ${ListOfProducts.size}")
 //                Log.e(TAG, "data3 ${option}")
-
 
                 for (product in ListOfProducts) {
                     Log.e(TAG, "Product name  = ${product.product_name}")
@@ -228,6 +245,31 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
             }
         }
+    }
+
+    override fun onClick(view: View, storeProduct: StoreProduct) {
+        Log.e("Test", "storeProduct ${storeProduct.product_name}")
+//        var model: StoreProduct = StoreProduct()
+//        model = storeProduct
+        storeViewModel.getData(storeProduct)
+//        storeViewModel.test()
+
+        val gson: Gson = Gson()
+        val json = gson.toJson(storeProduct)
+
+        Prefs.edit().putString(Constants.PRODUCT, json).apply()
+
+//        storeDetailsViewModel.storeProductModel.value = storeProduct
+
+        val intent = Intent(context, StoreDetailsActivity::class.java)
+
+//        val bundle = Bundle()
+
+//        bundle.putSerializable(com.example.firebaseauthwithmvvm.constants.Constants.STORE_PRODUCTS, storeProduct)
+//        intent.putExtras(bundle)
+        startActivity(intent)
+
+
     }
 
 

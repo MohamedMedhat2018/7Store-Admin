@@ -10,7 +10,6 @@
             type="com.example.firebaseauthwithmvvm.models.StoreProduct" />
     </data>
 
-
     <RelativeLayout
         android:id="@+id/rl_parent_product_item"
         android:layout_width="match_parent"
@@ -49,12 +48,11 @@
 
             <TextView
                 android:id="@+id/product_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
                 android:layout_marginBottom="20dp"
                 android:alpha="1"
-                android:ellipsize="marquee"
                 android:paddingLeft="20dp"
                 android:text="@{viewmodel.product_name}"
                 android:textColor="@color/white"
@@ -63,13 +61,12 @@
 
             <TextView
                 android:id="@+id/product_qnt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
                 android:layout_marginTop="20dp"
                 android:alpha="1"
                 android:drawablePadding="10dp"
-                android:ellipsize="marquee"
                 android:paddingLeft="25dp"
                 android:text="@{viewmodel.product_quantity}"
                 android:textColor="@color/white"
@@ -118,6 +115,18 @@
             <!--                    android:textSize="26sp"-->
             <!--                    android:visibility="visible" />-->
 
+            <!--            <include-->
+            <!--                layout="@layout/view_separator">-->
+            <!--            </include>-->
+
+            <TextView
+                android:id="@+id/viewSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/grey_402" />
 
         </androidx.cardview.widget.CardView>
 
