@@ -10,4 +10,6 @@ class StoreProductRepo(private val source: FirebaseSource) {
 //    fun uploadProductImage() = source.UploadImageToFirebase()
 
     fun getStoreProducts(myCallback: MyCallback) = source.getStoreProducts(myCallback)
+
+
 }

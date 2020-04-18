@@ -25,11 +25,27 @@
     <string name="rationale_ask_ok">نعم</string>
     <string name="rationale_ask_cancel">الغاء</string>
     <string name="select_a_product_image">ختر صوره للمنتج</string>
-    <string name="add_product_name">add product name</string>
-    <string name="add_product_Quantity">add product Quantity</string>
-    <string name="add_product_cost">add product cost</string>
-    <string name="add_product_price">add product price</string>
-    <string name="add_product_success">Add product Successfully</string>
+    <string name="add_product_name">ادخل اسم المنتج</string>
+    <string name="add_product_Quantity">ادخل الكميه</string>
+    <string name="add_product_cost">ادخل سعر المنتج </string>
+    <string name="add_product_price">ادخل سعر البيع للمنتج</string>
+    <string name="add_product_success">تم اضافه المنتج بنجاح</string>
+    <string name="customer_name">اسم العميل</string>
+    <string name="customer_name_hint">احمد مدحت</string>
+    <string name="select_a_product">اختر منتج</string>
+    <string name="customer_phone">رقم الهاتف</string>
+    <string name="customer_phone_hint">ادخل رقم هاتف العميل </string>
+    <string name="customer_address">عنوان العميل</string>
+    <string name="customer_address_hint">ادخل عنوان العميل</string>
+    <string name="customer_account_link_hint">ادخل حساب العميل</string>
+    <string name="customer_account">حساب العميل</string>
+    <string name="product_name">اسم المنتج</string>
+    <string name="choose_a_product">الكميه</string>
+    <string name="product_quantity_hint">ادخل الكميه</string>
+    <string name="request_date">تاريخ الطلب</string>
+    <string name="request_date_hint">ادخل تاريخ طلب المنتج</string>
+    <string name="delivery_date">تاريخ التسليم</string>
+    <string name="delivery_date_hint">ادخل تاريخ تسليم الطلب</string>
 
 
 </resources>

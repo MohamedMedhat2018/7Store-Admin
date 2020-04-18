@@ -7,6 +7,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="custom_blue">#66cccc</color>
+    <color name="transparent">#00000000</color>
+
 
     <color name="bg_white">#F5F5F5</color>
     <color name="light_grey1">#bdb9b5</color>
@@ -14,6 +16,9 @@
     <color name="gray_text">#727272</color>
 
     <color name="grey_402">#CBBDBDBD</color>
+
+    <color name="light_grey">#e7e7ec</color>
+    <color name="normal_grey">#adafb3</color>
 
 
     <color name="gray2">#33D5D5D5</color>

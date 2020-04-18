@@ -14,14 +14,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
-import com.example.firebaseauthwithmvvm.constants.Constants
+import com.example.firebaseauthwithmvvm.constants.Childs
 import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsActivity
-import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsViewModel
-import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
@@ -257,7 +255,7 @@ class StoreFragment : Fragment(), AppBarLayout.OnOffsetChangedListener, OnItemCl
         val gson: Gson = Gson()
         val json = gson.toJson(storeProduct)
 
-        Prefs.edit().putString(Constants.PRODUCT, json).apply()
+        Prefs.edit().putString(Childs.PRODUCT.name, json).apply()
 
 //        storeDetailsViewModel.storeProductModel.value = storeProduct
 

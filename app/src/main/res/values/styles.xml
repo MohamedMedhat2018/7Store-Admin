@@ -38,4 +38,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomFloatingStyle">
+
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="tint">@color/white</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+        <!-- can hold src -->
+        <item name="android:src">@drawable/ic_add_white_24dp</item>
+
+    </style>
+
 </resources>

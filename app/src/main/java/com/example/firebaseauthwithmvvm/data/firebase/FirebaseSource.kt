@@ -2,15 +2,12 @@ package com.example.firebaseauthwithmvvm.data.firebase
 
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
 import com.example.firebaseauthwithmvvm.constants.Childs
-import com.example.firebaseauthwithmvvm.constants.Constants
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.models.Users
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
 import com.example.firebaseauthwithmvvm.ui.store.MyCallback
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -53,15 +50,15 @@ class FirebaseSource {
                         }
 
                         override fun onDataChange(p0: DataSnapshot) {
-                            if (p0.exists() && p0.childrenCount > 0){
+                            if (p0.exists() && p0.childrenCount > 0) {
                                 p0.children.forEach {
-                                        val user: Users? = it.getValue(Users::class.java)
-                                        if (TextUtils.equals(user?.password, pass)){
-                                            Log.e(TAG, "Success login ")
-                                            //action
+                                    val user: Users? = it.getValue(Users::class.java)
+                                    if (TextUtils.equals(user?.password, pass)) {
+                                        Log.e(TAG, "Success login ")
+                                        //action
 
 
-                                        }
+                                    }
                                 }
 
                             }
@@ -97,9 +94,14 @@ class FirebaseSource {
                 }
             }
             .addOnSuccessListener {
-                Prefs.edit().putString(Constants.FIREBASE_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                Prefs.edit().putString(
+                    Childs.FIREBASE_UID.name,
+                    FirebaseAuth.getInstance().currentUser?.uid
+                )
                 val Uid = FirebaseAuth.getInstance().currentUser?.uid
-                Log.e(TAG, "FirebaseSource Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
+                Log.e(
+                    TAG,
+                    "FirebaseSource Register Successful " + FirebaseAuth.getInstance().currentUser?.uid
                 )
                 if (Uid != null) {
                     val user: Users = Users(Uid, email, pass)
@@ -118,22 +120,25 @@ class FirebaseSource {
 
     fun addStoreProduct(product: StoreProduct) = Completable.create { emitter ->
         val key: String? = (RefBase.refStoreProduct().push().key)
-        RefBase.refStoreProduct().child(key!!).setValue(product)
-            .addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    emitter.onComplete()
-                    if (it.isSuccessful) {
-                        Log.e(TAG, "Product Add Successful ")
-                    } else {
-                        Log.e(TAG, "Product Add Failed ")
+        if (key != null) {
+            product.product_id = key
+            RefBase.refStoreProduct().child(key).setValue(product)
+                .addOnCompleteListener {
+                    if (!emitter.isDisposed) {
+                        emitter.onComplete()
+                        if (it.isSuccessful) {
+                            Log.e(TAG, "Product Add Successful ")
+                        } else {
+                            Log.e(TAG, "Product Add Failed ")
 
+                        }
+                    } else {
+                        Log.e(TAG, "Product Add Successful done ")
                     }
-                } else {
-                    Log.e(TAG, "Product Add Successful done ")
+                }.addOnFailureListener {
+                    emitter.onError(it)
                 }
-            }.addOnFailureListener {
-                emitter.onError(it)
-            }
+        }
     }
 
     //not use yet

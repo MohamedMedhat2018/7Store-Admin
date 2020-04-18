@@ -32,6 +32,22 @@
     <string name="add_product_cost">add product cost</string>
     <string name="add_product_price">add product price</string>
     <string name="add_product_success">Add product Successfully</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_name_hint">Enter Customer Name</string>
+    <string name="select_a_product">Select A product</string>
+    <string name="customer_phone">Customer Phone</string>
+    <string name="customer_phone_hint">Enter Customer Phone</string>
+    <string name="customer_address">Customer Address</string>
+    <string name="customer_address_hint">Enter Customer Address</string>
+    <string name="customer_account_link_hint">Enter Customer Account Link</string>
+    <string name="customer_account">Customer Account</string>
+    <string name="product_name">Product Name</string>
+    <string name="choose_a_product">Choose A product</string>
+    <string name="product_quantity_hint">Choose Product Quantity</string>
+    <string name="request_date">request Date</string>
+    <string name="request_date_hint">Enter Request Date</string>
+    <string name="delivery_date">Delivery Date</string>
+    <string name="delivery_date_hint">Enter Delivery Date</string>
 
 
 </resources>

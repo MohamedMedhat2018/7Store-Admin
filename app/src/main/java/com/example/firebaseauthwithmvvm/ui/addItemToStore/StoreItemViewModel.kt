@@ -161,6 +161,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
                     Log.e(TAG, "uri $imageUrl")
 
                     productModel = StoreProduct(
+                        "",
                         imageUrl,
                         productName.value!!,
                         productQuantity.value.toString(),

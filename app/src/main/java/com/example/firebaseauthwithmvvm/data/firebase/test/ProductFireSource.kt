@@ -1,17 +1,13 @@
-package com.example.firebaseauthwithmvvm.data.firebase.product
+package com.example.firebaseauthwithmvvm.data.firebase.test
 
-import android.util.Log
-import com.example.firebaseauthwithmvvm.models.Product
+import com.example.firebaseauthwithmvvm.models.ProductTest
 import com.example.firebaseauthwithmvvm.ref_base.RefBase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import io.reactivex.Completable
 
 class ProductFireSource {
 
 
-    private val TAG: String = Product::javaClass.name
+    private val TAG: String = ProductTest::javaClass.name
 
     //    private val mAuth: FirebaseAuth by lazy {
 ////        mAuth = FirebaseAuth.getInstance()
@@ -20,8 +16,8 @@ class ProductFireSource {
 //    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance();
 //    private val data: FirebaseAuth = FirebaseAuth.getInstance();
 
-    public fun addNewOrder(product: Product) = Completable.create { emitter ->
-        RefBase.refStoreProduct().setValue(product)
+    public fun addNewOrder(productTest: ProductTest) = Completable.create { emitter ->
+        RefBase.refStoreProduct().setValue(productTest)
             .addOnSuccessListener {
                 if (!emitter.isDisposed) {
                     emitter.onComplete()

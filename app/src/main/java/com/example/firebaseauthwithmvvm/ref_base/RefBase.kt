@@ -1,7 +1,6 @@
 package com.example.firebaseauthwithmvvm.ref_base
 
 import com.example.firebaseauthwithmvvm.constants.Childs
-import com.example.firebaseauthwithmvvm.constants.Constants
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 

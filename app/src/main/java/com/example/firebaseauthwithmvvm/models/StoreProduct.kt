@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class StoreProduct {
 
+    var product_id: String = ""
     var product_image: String = ""
     var product_name: String = "d"
     var product_quantity: String = ""
@@ -11,12 +12,14 @@ class StoreProduct {
     var product_price: String = ""
 
     constructor(
+        product_id: String,
         product_image: String,
         product_name: String,
         product_quantity: String,
         product_material_Cost: String,
         product_price: String
     ) {
+        this.product_id = product_id
         this.product_image = product_image
         this.product_name = product_name
         this.product_quantity = product_quantity

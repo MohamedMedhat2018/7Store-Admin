@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.store_details.StoreDetailsActivity"></activity>
+        <activity android:name=".ui.addOrder.AddOrderActivity"></activity>
+        <activity android:name=".ui.store_details.StoreDetailsActivity" />
         <activity android:name=".ui.add_product.addProductActivity">
 
             <!-- <intent-filter> -->

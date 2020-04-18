@@ -1,16 +1,13 @@
 package com.example.firebaseauthwithmvvm.ui.store_details
 
 import android.util.Log
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.firebaseauthwithmvvm.constants.Constants
+import com.example.firebaseauthwithmvvm.constants.Childs
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
-import com.squareup.picasso.Picasso
 
 
 class StoreDetailsViewModel() : ViewModel() {
@@ -33,10 +30,10 @@ class StoreDetailsViewModel() : ViewModel() {
 
 
     fun data() {
-        if (Prefs.contains(Constants.PRODUCT)) {
+        if (Prefs.contains(Childs.PRODUCT.name)) {
             lateinit var ProductDetails: StoreProduct
             val gson: Gson = Gson()
-            val json = Prefs.getString(Constants.PRODUCT, "")
+            val json = Prefs.getString(Childs.PRODUCT.name, "")
             ProductDetails = gson.fromJson(json, StoreProduct::class.java)
             Log.e("Data", "Get details " + ProductDetails.product_name)
 

@@ -30,7 +30,7 @@ class StoreAdapter(
     override fun getItemCount(): Int = storeProduct.size
 
     override fun onBindViewHolder(holder: storeProductViewHolder, position: Int) {
-        holder.productRecyclerListItemBinding.viewmodel = storeProduct[position]
+        holder.productRecyclerListItemBinding.viewmodel = storeProduct[position] 
         holder.productRecyclerListItemBinding.root.setOnClickListener {
             onItemClick.onClick(it, storeProduct[position])
         }

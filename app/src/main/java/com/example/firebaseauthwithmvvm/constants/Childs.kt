@@ -4,7 +4,10 @@ enum class Childs {
     PRODUCTS,
     USERS,
     email,
-    PRODUCT
+    PRODUCT,
+    FIREBASE_UID,
+    StoreProducts,
+
 
 
 }

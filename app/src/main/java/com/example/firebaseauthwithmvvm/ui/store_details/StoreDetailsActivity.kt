@@ -1,27 +1,14 @@
 package com.example.firebaseauthwithmvvm.ui.store_details
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
-import com.example.firebaseauthwithmvvm.constants.Constants
-import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
-import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.databinding.ActivityStoreDetailsBinding
-import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
 import com.example.firebaseauthwithmvvm.models.StoreProduct
-import com.example.firebaseauthwithmvvm.ui.store.StoreViewModel
-import com.example.firebaseauthwithmvvm.ui.store.StoreViewModelFactory
-import com.google.gson.Gson
-import com.pixplicity.easyprefs.library.Prefs
-import com.squareup.picasso.Picasso
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 

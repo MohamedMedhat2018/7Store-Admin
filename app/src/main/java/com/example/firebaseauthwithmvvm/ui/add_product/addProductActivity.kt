@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
-import com.example.firebaseauthwithmvvm.data.model.Product
+import com.example.firebaseauthwithmvvm.data.model_test.Product
 import kotlinx.android.synthetic.main.activity_test.*
 
 class addProductActivity : AppCompatActivity() {

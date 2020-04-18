@@ -1,14 +1,21 @@
 package com.example.firebaseauthwithmvvm.ui.orders
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebaseauthwithmvvm.R
+import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
+import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
+import com.example.firebaseauthwithmvvm.databinding.FragmentStoreBinding
+import com.example.firebaseauthwithmvvm.databinding.OrderFragmentBinding
 
 class OrderFragment : Fragment() {
 
@@ -23,15 +30,23 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProviders.of(this).get(OrderViewModel::class.java)
+        val binding: OrderFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.order_fragment, container, false)
 
-        val root = inflater.inflate(R.layout.order_fragment, container, false)
+        viewModel = ViewModelProviders.of(
+            this.activity!!, OrderVierModelFactory(
+                Application(), StoreProductRepo(
+                    FirebaseSource()
+                )
+            )
+        ).get(OrderViewModel::class.java)
 
-//        val textView: TextView = root.findViewById(R.id.text_order)
+        val root = binding.root
 
-        viewModel.textLiveDta.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-        })
+        (activity as AppCompatActivity).supportActionBar?.show()
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
 
         return root

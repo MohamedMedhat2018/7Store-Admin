@@ -1,4 +1,4 @@
-package com.example.firebaseauthwithmvvm.data.model
+package com.example.firebaseauthwithmvvm.data.model_test
 
 import java.io.Serializable
 

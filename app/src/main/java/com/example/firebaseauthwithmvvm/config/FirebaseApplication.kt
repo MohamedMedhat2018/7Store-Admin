@@ -6,8 +6,10 @@ import com.example.firebaseauthwithmvvm.data.firebase.FirebaseSource
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.data.repository.UserRepository
 import com.example.firebaseauthwithmvvm.ui.addItemToStore.StoreItemViewModelFactory
+import com.example.firebaseauthwithmvvm.ui.addOrder.AddOrderViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.auth.AuthViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.home2.HomeViewModelFactory
+import com.example.firebaseauthwithmvvm.ui.orders.OrderVierModelFactory
 import com.example.firebaseauthwithmvvm.ui.store.StoreViewModelFactory
 import com.example.firebaseauthwithmvvm.ui.store_details.StoreDetailsViewModelFactory
 import com.pixplicity.easyprefs.library.Prefs
@@ -32,6 +34,9 @@ class FirebaseApplicationConfig : Application(), KodeinAware {
         bind() from singleton { StoreDetailsViewModelFactory() }
         bind() from singleton { StoreViewModelFactory(Application(), instance()) }
         bind() from singleton { HomeViewModelFactory(instance()) }
+        bind() from singleton { OrderVierModelFactory(Application(), instance()) }
+        bind() from singleton { AddOrderViewModelFactory(Application(), instance()) }
+
 
     }
 

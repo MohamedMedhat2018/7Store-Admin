@@ -1,6 +1,6 @@
 package com.example.firebaseauthwithmvvm.utils.fire_utils
 
-import com.example.firebaseauthwithmvvm.constants.Constants
+import com.example.firebaseauthwithmvvm.constants.Childs
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -13,11 +13,11 @@ class RefBase {
         }
 
         fun refStoreProduct(customer: String): DatabaseReference {
-            return root().child(Constants.STORE_PRODUCTS).child(customer)
+            return root().child(Childs.StoreProducts.name).child(customer)
         }
 
         fun refStoreProduct(): DatabaseReference {
-            return root().child(Constants.STORE_PRODUCTS)
+            return root().child(Childs.StoreProducts.name)
         }
 
     }

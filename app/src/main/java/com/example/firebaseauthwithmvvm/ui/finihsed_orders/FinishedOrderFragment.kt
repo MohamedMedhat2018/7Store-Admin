@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,11 +28,15 @@ class FinishedOrderFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(FinishedOrderViewModel::class.java)
 
+        (activity as AppCompatActivity).supportActionBar?.show()
+
+
         val root = inflater.inflate(R.layout.finished_order_fragment, container, false)
+
 
         val textView: TextView = root.findViewById(R.id.text_finished_order)
 
-        viewModel.textLiveData.observe(this, Observer {
+        viewModel.textLiveData.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebaseauthwithmvvm.R
-import com.example.firebaseauthwithmvvm.data.model.Product
+import com.example.firebaseauthwithmvvm.data.model_test.Product
 import com.squareup.picasso.Picasso
 
 class dummyDataRecyclerView(var product: ArrayList<Product>, val context: Context) :
