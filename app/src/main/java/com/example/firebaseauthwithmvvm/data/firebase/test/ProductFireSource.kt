@@ -1,7 +1,7 @@
 package com.example.firebaseauthwithmvvm.data.firebase.test
 
 import com.example.firebaseauthwithmvvm.models.ProductTest
-import com.example.firebaseauthwithmvvm.ref_base.RefBase
+import com.example.firebaseauthwithmvvm.utils.fire_utils.RefBase
 import io.reactivex.Completable
 
 class ProductFireSource {

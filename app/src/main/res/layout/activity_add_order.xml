@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -10,8 +11,7 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,9 +46,10 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_below="@id/app_bar_layout_add_order"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.93"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar_layout_add_order">
 
@@ -81,8 +82,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/customer_name_hint"
+                        android:maxLines="1"
+                        android:onClick="@{() -> viewModel.clearProductQNTError()}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerName}" />
 
                 </LinearLayout>
 
@@ -109,8 +112,10 @@
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/customer_phone_hint"
                         android:inputType="phone"
+                        android:maxLines="1"
+                        android:onClick="@{() -> viewModel.clearProductQNTError()}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerPhone}" />
 
                 </LinearLayout>
 
@@ -137,8 +142,10 @@
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/customer_address_hint"
                         android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:onClick="@{() -> viewModel.clearProductQNTError()}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerAddress}" />
 
                 </LinearLayout>
 
@@ -165,8 +172,10 @@
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/customer_account_link_hint"
                         android:inputType="textUri"
+                        android:maxLines="1"
+                        android:onClick="@{() -> viewModel.clearProductQNTError()}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerAccount}" />
 
                 </LinearLayout>
 
@@ -196,7 +205,7 @@
                         android:inputType="textPostalAddress"
                         android:onClick="@{(v) -> viewModel.getproducts(v)}"
                         android:padding="18dp"
-                        android:text="@{viewModel.getSelectedProductName}" />
+                        android:text="@={viewModel.selectedProductName}" />
 
                 </LinearLayout>
 
@@ -209,6 +218,7 @@
                     android:paddingTop="16dp">
 
                     <TextView
+                        android:id="@+id/tv_order_qty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"
@@ -216,16 +226,59 @@
                         android:paddingBottom="6dp"
                         android:text="Product QTY"
                         android:textColor="@color/normal_grey"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="@{viewModel.selectedProductMaxQnt != null ? View.VISIBLE : View.GONE}" />
 
-                    <EditText
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_light_border"
-                        android:hint="@string/product_quantity_hint"
-                        android:inputType="number"
+                        android:gravity="bottom"
                         android:padding="18dp"
-                        android:text="amount" />
+                        android:visibility="@{viewModel.selectedProductMaxQnt != null ? View.VISIBLE : View.GONE}">
+
+                        <Button
+                            android:id="@+id/btn_store_product_quantity_increment"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/btn_bg_rounded_plus"
+                            android:onClick="@{() -> viewModel.incrementNProducts()}"
+                            android:padding="0dp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/et_store_product_quantity"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:inputType="numberDecimal"
+                            android:maxLength="2"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="@={`` + viewModel.productQNT}"
+
+                            />
+
+                        <Button
+                            android:id="@+id/btn_store_product_quantity_decrement"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/btn_bg_rounded_minus"
+                            android:onClick="@{() -> viewModel.decrementNProducts()}"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingBottom="6dp"
+                        android:text="@={viewModel.productQNTError}" />
 
                 </LinearLayout>
 
@@ -246,14 +299,15 @@
                         android:textColor="@color/normal_grey"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/request_date_hint"
-                        android:inputType="datetime"
+                        android:maxLines="1"
+                        android:onClick="@{(v) -> viewModel.addRequestDate(v)}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerRequestDate}" />
 
                 </LinearLayout>
 
@@ -274,14 +328,51 @@
                         android:textColor="@color/normal_grey"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text_light_border"
                         android:hint="@string/delivery_date_hint"
-                        android:inputType="datetime"
+                        android:maxLines="1"
+                        android:onClick="@{(v) -> viewModel.addDeleverDate(v)}"
                         android:padding="18dp"
-                        android:text="" />
+                        android:text="@={viewModel.customerDeliveryDate}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_order_confirm_and_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/no_bg_light_grey_border"
+                        android:onClick="@{() -> viewModel.confirmOrder()}"
+                        android:padding="7dp"
+                        android:text="Confirm"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/no_bg_light_grey_border"
+                        android:onClick="@{(v) -> viewModel.cancelOrder(v)}"
+                        android:padding="7dp"
+                        android:text="Cancel"
+                        android:textColor="@color/gray" />
+
 
                 </LinearLayout>
 

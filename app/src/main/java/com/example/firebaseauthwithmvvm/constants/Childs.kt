@@ -7,7 +7,7 @@ enum class Childs {
     PRODUCT,
     FIREBASE_UID,
     StoreProducts,
-
-
+    ORDERS,
+    fragmentNumber
 
 }

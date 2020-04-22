@@ -1,6 +1,6 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
-interface ItemStoreListener {
+interface AddingToStoreListener {
 
     fun onStarted()
     fun onSuccess(message: String?)

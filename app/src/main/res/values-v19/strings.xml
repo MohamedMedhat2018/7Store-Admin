@@ -21,6 +21,7 @@
     <string name="add_product_cost">add product cost</string>
     <string name="add_product_price">add product price</string>
     <string name="add_product_success">Add product Successfully</string>
+    <string name="enter_customer_address">Enter Customer Address</string>
 
 
 </resources>

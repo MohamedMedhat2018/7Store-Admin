@@ -1,14 +1,11 @@
 package com.example.firebaseauthwithmvvm.ui.addItemToStore
 
 import android.Manifest
-import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -33,10 +30,9 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import java.io.File
-import java.security.AccessController.getContext
 
 
-class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener {
+class AddStoreItemActivity : AppCompatActivity(), KodeinAware, AddingToStoreListener {
 
     val TAG = AddStoreItemActivity::class.java.simpleName
 
@@ -72,6 +68,9 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
         //hiding the toolbar
         supportActionBar!!.hide()
 
+//        var addProductlistener: AddingToStoreListener? = null
+
+
         sDialog = SpotsDialog.Builder().setContext(this)
             .setCancelable(false)
             .build() as SpotsDialog
@@ -106,7 +105,7 @@ class AddStoreItemActivity : AppCompatActivity(), KodeinAware, ItemStoreListener
 
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
-        viewModel.itemStoreListener = this
+        viewModel.addItemListener = this
 
 
     }

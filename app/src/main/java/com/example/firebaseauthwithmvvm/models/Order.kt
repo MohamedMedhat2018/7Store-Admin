@@ -6,28 +6,31 @@ class Order {
     var customer_phone: String = ""
     var customer_address: String = ""
     var order_link: String = ""
+    var product_id: String = ""
     var order_quantity: String = ""
     var order_date: String = ""
     var order_delivered_date: String = ""
 
     constructor(
-        order_id: String,
-        order_name: String,
-        customer_phone: String,
-        customer_address: String,
-        order_link: String,
-        order_quantity: String,
-        order_date: String,
-        order_delivered_date: String
+        order_id: String?,
+        order_name: String?,
+        customer_phone: String?,
+        customer_address: String?,
+        order_link: String?,
+        product_id: String?,
+        order_quantity: String?,
+        order_date: String?,
+        order_delivered_date: String?
     ) {
-        this.order_id = order_id
-        this.order_name = order_name
-        this.customer_phone = customer_phone
-        this.customer_address = customer_address
-        this.order_link = order_link
-        this.order_quantity = order_quantity
-        this.order_date = order_date
-        this.order_delivered_date = order_delivered_date
+        this.order_id = order_id!!
+        this.order_name = order_name!!
+        this.customer_phone = customer_phone!!
+        this.customer_address = customer_address!!
+        this.order_link = order_link!!
+        this.product_id = product_id!!
+        this.order_quantity = order_quantity!!
+        this.order_date = order_date!!
+        this.order_delivered_date = order_delivered_date!!
     }
 
     constructor() {}

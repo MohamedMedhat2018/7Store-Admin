@@ -12,10 +12,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.data.repository.StoreProductRepo
 import com.example.firebaseauthwithmvvm.models.StoreProduct
-import com.example.firebaseauthwithmvvm.ui.addItemToStore.ItemStoreListener
+import com.example.firebaseauthwithmvvm.ui.addItemToStore.AddingToStoreListener
+import com.example.firebaseauthwithmvvm.utils.Utils
+import com.example.firebaseauthwithmvvm.utils.fire_utils.RefBase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -56,7 +57,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
 
     var uploadProductVisibility: MutableLiveData<String> = MutableLiveData()
 
-    var itemStoreListener: ItemStoreListener? = null
+    var addItemListener: AddingToStoreListener? = null
 
     lateinit var productModel: StoreProduct
 
@@ -104,7 +105,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
 
     private fun uploadProductPhoto(imagePath: Uri?) {
         if (test(imagePath) != null) {
-            itemStoreListener?.onStarted()
+            addItemListener?.onStarted()
             Log.e(TAG, "TEST Image ${test(imagePath)}")
             executeUploadTask()
         }
@@ -118,7 +119,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
             mBitmap = MediaStore.Images.Media.getBitmap(app.contentResolver, params[0])
             Log.e(TAG, "mBitmap $mBitmap")
         } catch (e: IOException) {
-            itemStoreListener?.onFailure(e.message)
+            addItemListener?.onFailure(e.message)
         }
 
         //convert bitmap to byte array then compress it and upload it
@@ -141,7 +142,8 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
     private fun executeUploadTask() {
         Toast.makeText(app, "Upload Image", Toast.LENGTH_SHORT).show()
 
-        val storeProductId: String? = FirebaseDatabase.getInstance().reference.push().key
+        val storeProductId: String? = RefBase.refRoot.push().key
+
         Log.e(TAG, "storeProductId $storeProductId")
 
         val referance: DatabaseReference = FirebaseDatabase.getInstance().reference
@@ -159,27 +161,30 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
                 result.addOnSuccessListener { uri: Uri? ->
                     val imageUrl = uri.toString()
                     Log.e(TAG, "uri $imageUrl")
+                    val productId: String? = (RefBase.refStoreProduct().push().key)
+                    if (productId != null) {
+                        productModel = StoreProduct(
+                            productId,
+                            imageUrl,
+                            productName.value!!,
+                            productQuantity.value.toString(),
+                            productCostValue.value.toString(),
+                            productPrice.value.toString()
+                        )
+                    }
 
-                    productModel = StoreProduct(
-                        "",
-                        imageUrl,
-                        productName.value!!,
-                        productQuantity.value.toString(),
-                        productCostValue.value.toString(),
-                        productPrice.value.toString()
-                    )
 
                     val disposable = repo.addNewProduct(productModel)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io()) // observable call to perform process outside main thread
+                        .observeOn(AndroidSchedulers.mainThread()) /* result will appear in main thread */
                         .subscribe({
-                            itemStoreListener?.onSuccess(context.getString(R.string.add_product_success))
+                            addItemListener?.onSuccess(context.getString(R.string.add_product_success))
                         }, {
-                            itemStoreListener?.onFailure(it.message!!)
+                            addItemListener?.onFailure(it.message)
                         })
                     disposables.add(disposable)
                 }.addOnFailureListener {
-                    itemStoreListener?.onFailure(it.message)
+                    addItemListener?.onFailure(it.message)
                 }
 
 //                    if (storeProductId != null) {
@@ -201,7 +206,7 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
 //                }
             }
         }.addOnFailureListener { exception ->
-            itemStoreListener?.onFailure(exception.message)
+            addItemListener?.onFailure(exception.message)
         }
 
 //        uploadTask.addOnCompleteListener { task ->
@@ -251,30 +256,30 @@ class StoreItemViewModel(application: Application, private val repo: StoreProduc
         //for image
         if (ProductImageUri.value == null) {
             Log.e(TAG, "select an image")
-            itemStoreListener?.onFailure(app.resources.getString(R.string.select_a_product_image))
+            addItemListener?.onFailure(app.resources.getString(R.string.select_a_product_image))
             return false
         } else if (productName.value?.trim().isNullOrEmpty()) {
             Log.e(TAG, "product name is empty")
-            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_name))
+            addItemListener?.onFailure(app.resources.getString(R.string.add_product_name))
             return false
         } else if (productQuantity.value == 0) {
             Log.e(TAG, "product Quantity is 0")
-            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_Quantity))
+            addItemListener?.onFailure(app.resources.getString(R.string.add_product_Quantity))
             return false
         } else if (productCostValue.value == 0) {
             Log.e(TAG, "product cost is empty")
-            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_cost))
+            addItemListener?.onFailure(app.resources.getString(R.string.add_product_cost))
             return false
         } else if (productPrice.value == 0) {
             Log.e(TAG, "product price is empty")
-            itemStoreListener?.onFailure(app.resources.getString(R.string.add_product_price))
+            addItemListener?.onFailure(app.resources.getString(R.string.add_product_price))
             return false
         }
         return true
     }
 
     fun addProductToStore() {
-        itemStoreListener?.onStarted()
+        addItemListener?.onStarted()
         if (checkFields()) {
             uploadProductPhoto(ProductImageUri.value)
 

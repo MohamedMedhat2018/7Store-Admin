@@ -3,10 +3,11 @@ package com.example.firebaseauthwithmvvm.data.firebase
 import android.text.TextUtils
 import android.util.Log
 import com.example.firebaseauthwithmvvm.constants.Childs
+import com.example.firebaseauthwithmvvm.models.Order
 import com.example.firebaseauthwithmvvm.models.StoreProduct
 import com.example.firebaseauthwithmvvm.models.Users
-import com.example.firebaseauthwithmvvm.ref_base.RefBase
 import com.example.firebaseauthwithmvvm.ui.store.MyCallback
+import com.example.firebaseauthwithmvvm.utils.fire_utils.RefBase
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -43,7 +44,7 @@ class FirebaseSource {
                 }
             }
             .addOnSuccessListener {
-                RefBase.getUser().child(Childs.email.name).equalTo(email).addValueEventListener(
+                RefBase.refUser().child(Childs.email.name).equalTo(email).addValueEventListener(
                     object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
 
@@ -105,7 +106,7 @@ class FirebaseSource {
                 )
                 if (Uid != null) {
                     val user: Users = Users(Uid, email, pass)
-                    RefBase.addUser(email, pass).child(Uid).setValue(user)
+                    RefBase.refUser().child(Uid).setValue(user)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.e(TAG, "User Add Successful ")
@@ -121,7 +122,6 @@ class FirebaseSource {
     fun addStoreProduct(product: StoreProduct) = Completable.create { emitter ->
         val key: String? = (RefBase.refStoreProduct().push().key)
         if (key != null) {
-            product.product_id = key
             RefBase.refStoreProduct().child(key).setValue(product)
                 .addOnCompleteListener {
                     if (!emitter.isDisposed) {
@@ -134,6 +134,27 @@ class FirebaseSource {
                         }
                     } else {
                         Log.e(TAG, "Product Add Successful done ")
+                    }
+                }.addOnFailureListener {
+                    emitter.onError(it)
+                }
+        }
+    }
+
+    fun addOrder(order: Order) = Completable.create { emitter ->
+        val key: String? = RefBase.refOrder().push().key
+        if (key != null) {
+            RefBase.refOrder().child(key).setValue(order)
+                .addOnCompleteListener {
+                    if (!emitter.isDisposed) {
+                        emitter.onComplete()
+                        if (it.isSuccessful) {
+                            Log.e(TAG, "order Add Successful ")
+                        } else {
+                            Log.e(TAG, "order Add Failed ")
+                        }
+                    } else {
+                        Log.e(TAG, "order Add Successful done ")
                     }
                 }.addOnFailureListener {
                     emitter.onError(it)
@@ -244,8 +265,6 @@ class FirebaseSource {
 
 //        return modelList2
 //        return modelList
-
-
     }
 
 

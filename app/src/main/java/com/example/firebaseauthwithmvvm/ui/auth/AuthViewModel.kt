@@ -35,7 +35,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
         Log.e(TAG, "ViewModel Login1 $email and $pass")
 
         if (email.isNullOrEmpty() || pass.isNullOrEmpty()) {
-            authListener?.onFailure("Invaild Phone or Password")
+            authListener?.onFailure("Invalid Phone or Password")
             return
         }
 

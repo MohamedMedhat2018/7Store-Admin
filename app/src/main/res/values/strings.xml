@@ -48,6 +48,13 @@
     <string name="request_date_hint">Enter Request Date</string>
     <string name="delivery_date">Delivery Date</string>
     <string name="delivery_date_hint">Enter Delivery Date</string>
+    <string name="enter_customer_name">Enter Customer Name</string>
+    <string name="enter_customer_phone">Enter Customer Phone</string>
+    <string name="enter_customer_address">Enter Customer Address</string>
+    <string name="enter_customer_account">Enter Customer Account</string>
+    <string name="enter_request_date">Enter Request Date</string>
+    <string name="enter_delivery_date">Enter Delivery Date</string>
+    <string name="choose_product_quantity">Choose product Quantity</string>
 
 
 </resources>

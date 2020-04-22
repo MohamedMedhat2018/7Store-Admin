@@ -8,15 +8,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseauthwithmvvm.R
 import com.example.firebaseauthwithmvvm.models.StoreProduct
+import com.example.firebaseauthwithmvvm.ui.addItemToStore.AddingToStoreListener
 import com.example.firebaseauthwithmvvm.ui.addOrder.SelectOrCancelProductListener
 import kotlinx.android.synthetic.main.layout_dialog_products.*
 import kotlinx.android.synthetic.main.select_product_item.view.*
 
-class ProductDialog : Dialog {
+class ProductDialog : Dialog, AddingToStoreListener {
 
     private var ctxt: Context? = null
     private var listOfProducts: MutableList<StoreProduct>
@@ -28,6 +28,7 @@ class ProductDialog : Dialog {
     private val selectedProductView: MutableList<View> = mutableListOf()
 
     var TAG = "ProductDialog"
+    var preventShowDialogTwice = false
 
 
     constructor(
@@ -65,6 +66,12 @@ class ProductDialog : Dialog {
         btn_Done.setOnClickListener {
             if (!selectedProduct.isNullOrEmpty())
                 selectOrCancelProductListener.onProductSelected(selectedProduct[0])
+            preventShowDialogTwice = false
+            dismiss()
+        }
+
+        btn_cancel.setOnClickListener {
+            preventShowDialogTwice = false
             dismiss()
         }
 
@@ -79,8 +86,9 @@ class ProductDialog : Dialog {
         rv_List_of_select_a_product.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         Log.e(TAG, "setProductRecyclerViewAdapter " + listOfProducts.size)
+
         rv_List_of_select_a_product.adapter =
-            SelectProductAdapter(listOfProducts, object : OnProductSelected {
+            SelectProductAdapter(this, listOfProducts, object : OnProductSelected {
                 override fun onProductSelected(view: View, product: StoreProduct, pos: Int) {
 
                     if (selectedProduct.contains(product)) {
@@ -115,6 +123,18 @@ class ProductDialog : Dialog {
                     }
                 }
             })
+    }
+
+    override fun onStarted() {
+        Log.e(TAG, "Started from dialog")
+    }
+
+    override fun onSuccess(message: String?) {
+        Log.e(TAG, "onSuccess from dialog" + message)
+    }
+
+    override fun onFailure(message: String?) {
+        Log.e(TAG, "onFailure from dialog " + message)
     }
 
 
